@@ -1,0 +1,53 @@
+.container {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.card {
+    background-color: burlywood;
+    padding: 8px 12px;
+    width: 25%;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid burlywood;
+    border-radius: 4px;
+    line-height: 1.2;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
+}
+
+.card .title {
+    padding: 4px 8px;
+}
+
+.card .body {
+    padding: 4px 8px;
+}
+
+.card .btns {
+    width: 100%;
+    position: relative;
+}
+
+.card .btns .btn {
+    position: absolute;
+    right: 1px;
+    top: 0;
+    border: 2px solid black;
+    background-color: white;
+    padding: 4px 8px;
+    margin-top: -15px;
+    font-size: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 8px;
+}

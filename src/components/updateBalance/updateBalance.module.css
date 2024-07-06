@@ -1,0 +1,68 @@
+.modal {
+    padding: 4px;
+}
+
+.modal .modalContent {
+    background-color: bisque;
+    width: 80%;
+    min-height: 50vh;
+    margin: auto;
+    border-radius: 4px;
+    border: 2px solid bisque;
+    padding: 4px 12px;
+}
+
+.modal .modalContent .header {
+    margin-top: 30px;
+    padding: 4px;
+    font-size: 24px;
+}
+
+.modal .hr hr {
+    width: 170px;
+    margin: auto;
+    margin-bottom: 40px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.modal .modalInput {
+    outline: none;
+    font-size: 22px;
+    padding: 4px;
+    border-radius: 4px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.modal .updateBtn {
+    display: block;
+    margin: auto;
+    font-size: 18px;
+    border: 2px solid burlywood;
+    background-color: burlywood;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
+}
+
+.updateBtn:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 6px;
+}
+
+.close {
+    color: brown;
+    text-align: right;
+    font-size: 30px;
+    font-weight: bold;
+    padding-right: 12px;
+    display: block;
+}
+
+.close:hover,
+.close:focus {
+    color: #aaa;
+    text-decoration: none;
+    cursor: pointer;
+}

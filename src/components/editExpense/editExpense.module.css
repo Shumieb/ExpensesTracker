@@ -1,0 +1,104 @@
+.modal {
+    padding: 4px;
+}
+
+.modal .modalContent {
+    background-color: bisque;
+    width: 80%;
+    min-height: 50vh;
+    margin: auto;
+    border-radius: 4px;
+    border: 2px solid bisque;
+    padding: 8px 12px;
+}
+
+.modal .modalContent .header {
+    margin-top: 15px;
+    padding: 4px;
+    font-size: 24px;
+}
+
+.modal .hr hr {
+    width: 140px;
+    margin: auto;
+    margin-bottom: 40px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.modal .modalInput {
+    outline: none;
+    font-size: 20px;
+    padding: 4px;
+    border-radius: 4px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.modal .typeSelect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.modal .typeSelect select {
+    font-size: 17px;
+    padding: 4px 8px;
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 4px;
+    outline: none;
+    min-width: 200px;
+}
+
+.modal .radios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.modal .radio {
+    padding: 0px 8px;
+}
+
+.modal .radio span {
+    padding-left: 8px;
+}
+
+.modal .editBtn {
+    display: block;
+    margin: auto;
+    font-size: 18px;
+    border: 2px solid burlywood;
+    background-color: burlywood;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
+}
+
+.editBtn:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 6px;
+}
+
+.close {
+    color: brown;
+    text-align: right;
+    font-size: 30px;
+    font-weight: bold;
+    padding-right: 12px;
+    display: block;
+}
+
+.close:hover,
+.close:focus {
+    color: #aaa;
+    text-decoration: none;
+    cursor: pointer;
+}
