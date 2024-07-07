@@ -13,35 +13,35 @@ export const expensesData = [
         "id": 1,
         "name": "Electricity",
         "status": "paid",
-        "type": "utility",
+        "type": "Utility",
         "amount": 150
     },
     {
         "id": 2,
         "name": "Water",
         "status": "outstanding",
-        "type": "utility",
+        "type": "Utility",
         "amount": 100
     },
     {
         "id": 3,
         "name": "Savings Account",
         "status": "paid",
-        "type": "savings",
+        "type": "Savings",
         "amount": 20
     },
     {
         "id": 4,
         "name": "Loan",
         "status": "outstanding",
-        "type": "credit",
+        "type": "Credit",
         "amount": 120
     },
     {
         "id": 5,
         "name": "Food Shopping",
         "status": "outstanding",
-        "type": "shopping",
+        "type": "Shopping",
         "amount": 50
     }
 ]

@@ -12,13 +12,12 @@
 
 .modal .modalContent {
     background-color: bisque;
-    min-height: 50vh;
+    height: 70vh;
     border-radius: 4px;
     border: 2px solid bisque;
     padding: 4px 12px;
     width: 50%;
-    height: 60vh;
-    margin: 10% auto;
+    margin: 5% auto;
 }
 
 .modal .modalContent .header {
@@ -110,4 +109,13 @@
     color: #aaa;
     text-decoration: none;
     cursor: pointer;
+}
+
+.errorMsg {
+    text-transform: capitalize;
+    color: brown;
+    padding: 8px;
+    margin-top: 10px;
+    font-style: italic;
+    margin-bottom: 24px;
 }

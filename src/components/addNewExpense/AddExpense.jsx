@@ -48,6 +48,13 @@ function AddExpense({ showHideModal, AddNewExpense }) {
     }
   }
 
+  const removeErrorMsg = () => {
+    if (error != "" || !displayError) {
+      setError("");
+      setDisplayError(false);
+    }
+  }
+
   return (
     <section className={styles.modal}>
       <form className={styles.modalContent} onSubmit={(e) => handleSubmit(e)}>
@@ -68,6 +75,7 @@ function AddExpense({ showHideModal, AddNewExpense }) {
             autoComplete="off"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
+            onFocus={removeErrorMsg}
           />
         </div>
         <div>
@@ -81,6 +89,7 @@ function AddExpense({ showHideModal, AddNewExpense }) {
             min={0}
             value={newAmount}
             onChange={(e) => setNewAmount(e.target.value)}
+            onFocus={removeErrorMsg}
           />
         </div>
         <div className={styles.typeSelect}>
@@ -90,6 +99,7 @@ function AddExpense({ showHideModal, AddNewExpense }) {
             id="type"
             value={newType}
             onChange={(e) => setNewType(e.target.value)}
+            onFocus={removeErrorMsg}
           >
             <option value="default" disabled>Select Type</option>
             {

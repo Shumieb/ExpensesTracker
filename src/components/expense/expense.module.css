@@ -32,6 +32,7 @@
     padding-top: 2px;
     font-style: italic;
     color: gray;
+    text-transform: capitalize;
 }
 
 .expense .type {
@@ -39,6 +40,7 @@
     padding-top: 2px;
     font-style: italic;
     color: gray;
+    text-transform: capitalize;
 }
 
 .value {
@@ -61,4 +63,9 @@
 
 .btn:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
+}
+
+.isPaid {
+    font-style: italic;
+    color: gray;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import styles from "./updateBalance.module.css"
 
-function UpdateBalance({ showHideModal, currentBalance, upDateCurrentBalance }) {
+function UpdateBalance({ showHideModal, currentBalance, updateCurrentBalance }) {
 
     // variables
     const [updatedBalance, setUpdatedBalance] = useState(0);
@@ -20,7 +20,7 @@ function UpdateBalance({ showHideModal, currentBalance, upDateCurrentBalance }) 
             setError("please enter a value greater than 0");
             setDisplayError(true);
         } else {
-            upDateCurrentBalance(updatedBalance);
+            updateCurrentBalance(updatedBalance);
             showHideModal("updateBalanceModal", false)
         }
     }
