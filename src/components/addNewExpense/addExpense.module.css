@@ -12,13 +12,12 @@
 
 .modal .modalContent {
     background-color: bisque;
-    min-height: 50vh;
+    height: 70vh;
     border-radius: 4px;
     border: 2px solid bisque;
     padding: 4px 12px;
     width: 50%;
-    height: 60vh;
-    margin: 10% auto;
+    margin: 5% auto;
 }
 
 .modal .modalContent .header {
@@ -49,7 +48,7 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .modal .typeSelect select {
@@ -62,13 +61,17 @@
     min-width: 200px;
 }
 
+.modal .typeSelect select option {
+    text-transform: capitalize;
+}
+
 .modal .radios {
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 4px;
     gap: 12px;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
 
 .modal .radio {
@@ -88,7 +91,7 @@
     border-radius: 4px;
     padding: 4px 8px;
     cursor: pointer;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
 }
 
@@ -110,4 +113,13 @@
     color: #aaa;
     text-decoration: none;
     cursor: pointer;
+}
+
+.errorMsg {
+    text-transform: capitalize;
+    color: brown;
+    padding: 8px;
+    margin-top: 10px;
+    font-style: italic;
+    margin-bottom: 24px;
 }

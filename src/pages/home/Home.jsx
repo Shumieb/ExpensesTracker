@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
+import styles from "./home.module.css"
 import BalanceExpenses from "../../components/balanceExpenses/BalanceExpenses"
 import ExpensesList from "../../components/expensesList/ExpensesList"
 import FilterBar from "../../components/filterBar/FilterBar"
-import styles from "./home.module.css"
-
 import { balance, expensesData } from "../../assets/data"
 import ActionBtns from "../../components/actionBtns/ActionBtns"
 import UpdateBalance from "../../components/updateBalance/UpdateBalance"
@@ -46,16 +45,15 @@ function Home() {
         }
     }
 
+    const AddNewExpense = (newExpense) => {
+        setMyData(oldArray => [newExpense, ...oldArray]);
+    }
+
     return (
         <main className={styles.homeContainer}>
             <Hero title="Home" />
-            <BalanceExpenses
-                balance={currentBalance}
-            />
-            <ActionBtns
-                balance={currentBalance}
-                showHideModal={showHideModal}
-            />
+            <BalanceExpenses balance={currentBalance} />
+            <ActionBtns showHideModal={showHideModal} />
             <FilterBar />
             <ExpensesList
                 myData={myData}
@@ -75,6 +73,7 @@ function Home() {
                 displayAddExpenseModal &&
                 <AddExpense
                     showHideModal={showHideModal}
+                    AddNewExpense={AddNewExpense}
                 />
             }
             {

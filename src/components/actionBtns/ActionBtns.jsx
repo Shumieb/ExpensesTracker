@@ -1,15 +1,6 @@
-import { useEffect, useState } from "react"
 import styles from "./actionBtns.module.css"
 
-function ActionBtns({ balance, showHideModal }) {
-
-    // variables
-    const [currentBalance, setCurrentBalance] = useState(0);
-
-    // use effect
-    useEffect(() => {
-        setCurrentBalance(balance);
-    }, [balance])
+function ActionBtns({ showHideModal }) {
 
     return (
         <section className={styles.actionBtns}>

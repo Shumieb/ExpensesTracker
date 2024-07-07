@@ -2,7 +2,6 @@ import Expense from "../expense/Expense"
 import styles from "./expensesList.module.css"
 
 function ExpensesList({ myData, showHideModal }) {
-
     return (
         <section className={styles.list}>
             <ul className={styles.expensesList}>

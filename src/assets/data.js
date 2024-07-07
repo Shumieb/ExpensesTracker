@@ -1,5 +1,13 @@
 export const balance = 10000;
 
+export const expenseTypes = [
+    { "id": 1, "name": "Utility" },
+    { "id": 2, "name": "Shopping" },
+    { "id": 3, "name": "Savings" },
+    { "id": 4, "name": "Credit" },
+    { "id": 5, "name": "Other" }
+]
+
 export const expensesData = [
     {
         "id": 1,
