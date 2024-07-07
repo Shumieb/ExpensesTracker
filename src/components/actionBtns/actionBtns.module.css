@@ -9,8 +9,9 @@
 }
 
 .actionBtns .btn {
-    padding: 4px 8px;
-    font-size: 16px;
+    padding: 8px 14px;
+    font-weight: bold;
+    font-size: 18px;
     outline: none;
     border: 2px solid burlywood;
     border-radius: 4px;

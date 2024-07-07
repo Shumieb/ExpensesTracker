@@ -43,5 +43,26 @@ export const expensesData = [
         "status": "outstanding",
         "type": "Shopping",
         "amount": 50
+    },
+    {
+        "id": 6,
+        "name": "Clothes Shopping",
+        "status": "outstanding",
+        "type": "Shopping",
+        "amount": 59
+    },
+    {
+        "id": 7,
+        "name": "BroadBand",
+        "status": "paid",
+        "type": "Utility",
+        "amount": 25
+    },
+    {
+        "id": 8,
+        "name": "Telephone Bill",
+        "status": "outstanding",
+        "type": "Utility",
+        "amount": 150
     }
 ]

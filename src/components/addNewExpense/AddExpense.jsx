@@ -28,7 +28,7 @@ function AddExpense({ showHideModal, AddNewExpense }) {
               "name": newName,
               "status": status,
               "type": newType,
-              "amount": newAmount
+              "amount": Number(newAmount)
             }
 
             AddNewExpense(newExpense);

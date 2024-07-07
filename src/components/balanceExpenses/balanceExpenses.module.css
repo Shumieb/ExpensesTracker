@@ -1,16 +1,23 @@
 .container {
     padding: 8px 16px;
+}
+
+.top,
+.bottom {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 5px;
+}
+
+.top {
+    margin: 20px auto;
 }
 
 .card {
     background-color: burlywood;
     padding: 8px 12px;
-    width: 25%;
-    height: 15vh;
+    width: 45%;
+    height: 18vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -14,17 +14,31 @@ function Home() {
 
     // variables
     const [currentBalance, setCurrentBalance] = useState(0);
+    const [outstandingBalance, setOutstandingBalance] = useState(0);
+    const [paidBalance, setPaidBalance] = useState(0);
     const [myData, setMyData] = useState([]);
     const [displayUpdateBalanceModal, setDisplayUpdateBalanceModal] = useState(false);
     const [displayAddExpenseModal, setDisplayUpdateExpenseModal] = useState(false);
     const [displayEditExpenseModal, setDisplayEditExpenseModal] = useState(false);
     const [expenseToEdit, setExpenseToEdit] = useState({});
+    const [selectedFilterType, setSelectedFilterType] = useState("All");
+    const [selectedFilterStatus, setSelectedFilterStatus] = useState("all");
 
     // use effect
     useEffect(() => {
         setCurrentBalance(balance);
         setMyData(expensesData);
     }, [])
+
+    useEffect(() => {
+        let filteredOustandingData = filterByStatus("outstanding");
+        let filteredOutstandingBalance = filteredOustandingData.reduce(function (acc, expense) { return acc + expense.amount; }, 0);
+        setOutstandingBalance(filteredOutstandingBalance);
+
+        let paidData = filterByStatus("paid");
+        let filteredPaidBalance = paidData.reduce(function (acc, expense) { return acc + expense.amount; }, 0);
+        setPaidBalance(filteredPaidBalance);
+    }, [myData])
 
     // functions
     const showHideModal = (modal, action) => {
@@ -82,18 +96,43 @@ function Home() {
         );
     }
 
+    const filterByStatus = (value) => {
+        let filteredData = myData.filter(expense => expense.status == value);
+        return filteredData;
+    }
+
+    const updateFilterType = (value) => {
+        setSelectedFilterType(value);
+    }
+
+    const updateFilterStatus = (value) => {
+        setSelectedFilterStatus(value);
+    }
+
     return (
         <main className={styles.homeContainer}>
             <Hero title="Home" />
-            <BalanceExpenses balance={currentBalance} />
+            <BalanceExpenses
+                balance={currentBalance}
+                outstandingBalance={outstandingBalance}
+                paidBalance={paidBalance}
+            />
             <ActionBtns showHideModal={showHideModal} />
-            <FilterBar />
+            <FilterBar
+                selectedFilterType={selectedFilterType}
+                updateFilterType={updateFilterType}
+                selectedFilterStatus={selectedFilterStatus}
+                updateFilterStatus={updateFilterStatus}
+            />
             <ExpensesList
                 myData={myData}
                 showHideModal={showHideModal}
                 updateExpenseToEdit={updateExpenseToEdit}
                 updateExpenseStatus={updateExpenseStatus}
                 deleteExpense={deleteExpense}
+                selectedFilterType={selectedFilterType}
+                selectedFilterStatus={selectedFilterStatus}
+                filterByStatus={filterByStatus}
             />
 
             {/* Modals */}

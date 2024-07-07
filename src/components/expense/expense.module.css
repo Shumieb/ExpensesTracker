@@ -25,6 +25,7 @@
 
 .expense .name {
     padding-right: 18px;
+    text-transform: capitalize;
 }
 
 .expense .status {
