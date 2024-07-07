@@ -1,6 +1,6 @@
 import styles from "./expense.module.css"
 
-function Expense({ expense }) {
+function Expense({ expense, showHideModal }) {
     return (
         <li className={styles.expenses}>
             <div className={styles.expense}>
@@ -13,7 +13,10 @@ function Expense({ expense }) {
             </div>
             <div className={styles.btns}>
                 <button className={styles.btn}>Paid</button>
-                <button className={styles.btn}>Edit</button>
+                <button
+                    className={styles.btn}
+                    onClick={() => showHideModal("editExpenseModal", true)}
+                >Edit</button>
                 <button className={styles.btn}>Delete</button>
             </div>
         </li>

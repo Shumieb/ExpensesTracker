@@ -1,10 +1,10 @@
 import styles from "./addExpense.module.css"
 
-function AddExpense() {
+function AddExpense({ showHideModal }) {
   return (
     <section className={styles.modal}>
       <form className={styles.modalContent}>
-        <span className={styles.close} >&times;</span>
+        <span className={styles.close} onClick={() => showHideModal("addExpenseModal", false)}>&times;</span>
         <h2 className={styles.header}>Add New Expense</h2>
         <span className={styles.hr}><hr /></span>
         <div>
