@@ -35,6 +35,7 @@
     font-style: italic;
     color: #94A69F;
     text-transform: capitalize;
+    display: block;
 }
 
 .expense .type {
@@ -43,6 +44,7 @@
     font-style: italic;
     color: #94A69F;
     text-transform: capitalize;
+    display: block;
 }
 
 .value {
@@ -51,6 +53,10 @@
 
 .btns {
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
 }
 
 .btn {
@@ -61,13 +67,113 @@
     margin-left: 8px;
     cursor: pointer;
     border-radius: 4px;
+    display: block;
 }
 
 .btn:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
 }
 
+.paidBtn {
+    display: block;
+}
+
 .isPaid {
     font-style: italic;
     color: #94A69F;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .expenses {
+        width: 80%;
+    }
+
+    .expense .status {
+        display: none;
+    }
+
+    .expense .type {
+        display: none;
+    }
+
+    .paidBtn {
+        display: none;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .expenses {
+        width: 80%;
+    }
+
+    .expense .status {
+        display: none;
+    }
+
+    .expense .type {
+        display: none;
+    }
+
+    .paidBtn {
+        display: none;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .expenses {
+        width: 95%;
+    }
+
+    .expense .status {
+        display: block;
+    }
+
+    .expense .type {
+        display: none;
+    }
+
+    .paidBtn {
+        display: block;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .expenses {
+        width: 90%;
+    }
+
+    .expense .status {
+        display: block;
+    }
+
+    .expense .type {
+        display: block;
+    }
+
+    .paidBtn {
+        display: block;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .expenses {
+        width: 80%;
+    }
+
+    .expense .status {
+        display: block;
+    }
+
+    .expense .type {
+        display: block;
+    }
+
+    .paidBtn {
+        display: block;
+    }
 }

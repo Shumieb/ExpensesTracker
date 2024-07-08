@@ -49,7 +49,7 @@ function ExpensesList({ showHideModal }) {
         <section className={styles.list}>
             <div>
                 <h2 className={styles.heading}>Expenses List</h2>
-                <p className={styles.hr}><hr /></p>
+                <span className={styles.hr}><hr /></span>
                 <div className={styles.btns}>
                     <button className={styles.btn}
                         onClick={() => showHideModal("addExpenseModal", true)}

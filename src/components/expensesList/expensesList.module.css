@@ -13,6 +13,10 @@
     margin-top: 20px;
 }
 
+.hr {
+    display: block;
+}
+
 .hr hr {
     width: 170px;
     margin: auto;
@@ -42,4 +46,51 @@
 
 .btn:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 6px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .hr {
+        margin-bottom: 20px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .hr {
+        margin-bottom: 20px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .btns {
+        width: 98%;
+    }
+
+    .hr {
+        margin-bottom: 0px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .btns {
+        width: 95%;
+    }
+
+    .hr {
+        margin-bottom: 0px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .btns {
+        width: 90%;
+    }
+
+    .hr {
+        margin-bottom: 0px;
+    }
 }

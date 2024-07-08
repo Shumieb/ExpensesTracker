@@ -8,13 +8,14 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
+    color: #d5dde3;
 }
 
 .modal .modalContent {
-    background-color: bisque;
-    height: 70vh;
+    background-color: #023535;
+    min-height: 70vh;
     border-radius: 4px;
-    border: 2px solid bisque;
+    border: 2px solid #023535;
     padding: 4px 12px;
     width: 50%;
     margin: 5% auto;
@@ -30,7 +31,7 @@
     width: 140px;
     margin: auto;
     margin-bottom: 40px;
-    border: 1px solid black;
+    border: 1px solid #d5dde3;
     border-radius: 4px;
 }
 
@@ -39,8 +40,9 @@
     font-size: 20px;
     padding: 4px;
     border-radius: 4px;
-    border: 2px solid black;
+    border: 2px solid #023535;
     margin-bottom: 20px;
+    background-color: #d5dde3;
 }
 
 .modal .typeSelect {
@@ -55,7 +57,7 @@
     font-size: 17px;
     padding: 4px 8px;
     border: 2px solid black;
-    background-color: white;
+    background-color: #d5dde3;
     border-radius: 4px;
     outline: none;
     min-width: 200px;
@@ -82,8 +84,8 @@
     display: block;
     margin: auto;
     font-size: 18px;
-    border: 2px solid burlywood;
-    background-color: burlywood;
+    border: 2px solid #d5dde3;
+    background-color: #d5dde3;
     border-radius: 4px;
     padding: 4px 8px;
     cursor: pointer;
@@ -96,7 +98,7 @@
 }
 
 .close {
-    color: brown;
+    color: #aaa;
     text-align: right;
     font-size: 30px;
     font-weight: bold;
@@ -106,16 +108,61 @@
 
 .close:hover,
 .close:focus {
-    color: #aaa;
+    color: brown;
     text-decoration: none;
     cursor: pointer;
 }
 
 .errorMsg {
     text-transform: capitalize;
-    color: brown;
+    color: #d5dde3;
     padding: 8px;
     margin-top: 10px;
     font-style: italic;
     margin-bottom: 24px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 80%;
+        margin: 5% auto;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 80%;
+        margin: 5% auto;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 70%;
+        margin: 5% auto;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 65%;
+        margin: 5% auto;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 50%;
+        margin: 5% auto;
+    }
 }

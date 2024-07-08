@@ -12,8 +12,8 @@ function FilterBar() {
 
     return (
         <section className={styles.filterBar}>
-            <div>
-                <label htmlFor="expenseType">Expense Type: </label>
+            <div className={styles.filterS}>
+                <label>Expense Type: </label>
                 <select
                     name="expenseType"
                     id="expenseType"

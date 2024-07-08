@@ -8,13 +8,14 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
+    color: #d5dde3;
 }
 
 .modal .modalContent {
-    background-color: bisque;
+    background-color: #023535;
     min-height: 50vh;
     border-radius: 4px;
-    border: 2px solid bisque;
+    border: 2px solid #023535;
     padding: 4px 12px;
     width: 50%;
     height: 60vh;
@@ -25,13 +26,14 @@
     margin-top: 30px;
     padding: 4px;
     font-size: 24px;
+    font-weight: normal;
 }
 
 .modal .hr hr {
     width: 170px;
     margin: auto;
     margin-bottom: 40px;
-    border: 1px solid black;
+    border: 2px solid #d5dde3;
     border-radius: 4px;
 }
 
@@ -42,6 +44,14 @@
     border-radius: 4px;
     border: 2px solid black;
     margin-bottom: 20px;
+    background-color: #d5dde3;
+    color: #023535;
+}
+
+.modal input::-webkit-outer-spin-button,
+.modal input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .modal .updateBtn {
@@ -49,10 +59,11 @@
     margin: auto;
     margin-top: 20px;
     font-size: 18px;
-    border: 2px solid burlywood;
-    background-color: burlywood;
+    border: 2px solid #d5dde3;
+    background-color: #d5dde3;
+    color: #023535;
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 4px 12px;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
 }
@@ -62,7 +73,7 @@
 }
 
 .close {
-    color: brown;
+    color: #aaa;
     text-align: right;
     font-size: 30px;
     font-weight: bold;
@@ -72,15 +83,60 @@
 
 .close:hover,
 .close:focus {
-    color: #aaa;
+    color: brown;
     text-decoration: none;
     cursor: pointer;
 }
 
 .errorMsg {
     text-transform: capitalize;
-    color: brown;
+    color: #d5dde3;
     padding: 8px;
-    margin-top: 20px;
+    margin-top: 24px;
     font-style: italic;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 80%;
+        margin: 5% auto;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 80%;
+        margin: 5% auto;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 70%;
+        margin: 5% auto;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 65%;
+        margin: 5% auto;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .modal .modalContent {
+        min-height: 80vh;
+        width: 50%;
+        margin: 5% auto;
+    }
 }

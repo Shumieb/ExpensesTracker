@@ -12,6 +12,10 @@
     color: #023535;
 }
 
+.filterS {
+    padding: 12px 0px 4px 0px;
+}
+
 .filterSelect {
     font-size: 16px;
     padding: 2px 8px;
@@ -36,4 +40,97 @@
 .radio span {
     padding-left: 4px;
     font-size: 20px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .filterBar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filterRadios {
+        padding: 12px 0px 8px 0px;
+    }
+
+    .filterS {
+        padding: 12px 0px 4px 0px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .filterBar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filterRadios {
+        padding: 12px 0px 8px 0px;
+    }
+
+    .filterS {
+        padding: 12px 0px 4px 0px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .filterBar {
+        width: 95%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filterRadios {
+        padding: 0px;
+    }
+
+    .filterS {
+        padding: 0px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .filterBar {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filterRadios {
+        padding: 0px;
+    }
+
+    .filterS {
+        padding: 0px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .filterBar {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filterRadios {
+        padding: 0px;
+    }
+
+    .filterS {
+        padding: 0px;
+    }
 }

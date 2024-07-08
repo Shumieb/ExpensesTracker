@@ -28,7 +28,7 @@ function Expense({ expense, showHideModal }) {
             </div>
             <div className={styles.btns}>
                 <button
-                    className={styles.btn}
+                    className={`${styles.btn} ${styles.paidBtn}`}
                     disabled={expense.status == "paid"}
                     onClick={() => dispatch(UpdateExpenseStatus(expense.id))}
                 >Paid</button>
