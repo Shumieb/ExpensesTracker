@@ -1,8 +1,14 @@
-import { useState } from "react"
 import styles from "./filterBar.module.css";
 import { expenseTypes } from "../../assets/data";
+import { useSelector, useDispatch } from 'react-redux';
+import { UpdateFilterType, UpdateFilterStatus } from "../../store/expensesSlice";
 
-function FilterBar({ selectedFilterType, updateFilterType, selectedFilterStatus, updateFilterStatus }) {
+function FilterBar() {
+
+    // values from store
+    const selectedFilterType = useSelector((state) => state.expenses.selectedFilterType);
+    const selectedFilterStatus = useSelector((state) => state.expenses.selectedFilterStatus);
+    const dispatch = useDispatch();
 
     return (
         <section className={styles.filterBar}>
@@ -13,7 +19,7 @@ function FilterBar({ selectedFilterType, updateFilterType, selectedFilterStatus,
                     id="expenseType"
                     className={styles.filterSelect}
                     value={selectedFilterType}
-                    onChange={(e) => updateFilterType(e.target.value)}
+                    onChange={(e) => dispatch(UpdateFilterType(e.target.value))}
                 >
                     <option value="All" >All</option>
                     {
@@ -31,7 +37,7 @@ function FilterBar({ selectedFilterType, updateFilterType, selectedFilterStatus,
                         id="all"
                         value="all"
                         checked={selectedFilterStatus == "all"}
-                        onChange={(e) => updateFilterStatus(e.target.value)}
+                        onChange={(e) => dispatch(UpdateFilterStatus(e.target.value))}
                     />
                     <span>All</span>
                 </label>
@@ -42,7 +48,7 @@ function FilterBar({ selectedFilterType, updateFilterType, selectedFilterStatus,
                         id="outstanding"
                         value="outstanding"
                         checked={selectedFilterStatus == "outstanding"}
-                        onChange={(e) => updateFilterStatus(e.target.value)}
+                        onChange={(e) => dispatch(UpdateFilterStatus(e.target.value))}
                     />
                     <span>Outstanding</span>
                 </label>
@@ -53,7 +59,7 @@ function FilterBar({ selectedFilterType, updateFilterType, selectedFilterStatus,
                         id="paid"
                         value="paid"
                         checked={selectedFilterStatus == "paid"}
-                        onChange={(e) => updateFilterStatus(e.target.value)}
+                        onChange={(e) => dispatch(UpdateFilterStatus(e.target.value))}
                     />
                     <span>Paid</span>
                 </label>

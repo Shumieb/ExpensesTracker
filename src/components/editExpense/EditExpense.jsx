@@ -2,8 +2,14 @@ import { useState } from "react";
 import styles from "./editExpense.module.css";
 import { expenseTypes } from "../../assets/data";
 import { checkType } from "../../assets/utils";
+import { useSelector, useDispatch } from 'react-redux';
+import { UpdateExpense } from "../../store/expensesSlice";
 
-function EditExpense({ showHideModal, expenseToEdit, UpdateExpense }) {
+function EditExpense({ showHideModal }) {
+
+    // values from store
+    const expenseToEdit = useSelector((state) => state.expenses.expenseToEdit);
+    const dispatch = useDispatch();
 
     // variable
     const [editName, setEditName] = useState(expenseToEdit.name);
@@ -30,7 +36,7 @@ function EditExpense({ showHideModal, expenseToEdit, UpdateExpense }) {
                             "amount": editAmount
                         }
 
-                        UpdateExpense(editedExpense);
+                        dispatch(UpdateExpense(editedExpense));
                         showHideModal("editExpenseModal", false)
                     }
                 } else {

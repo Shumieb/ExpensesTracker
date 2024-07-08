@@ -2,8 +2,13 @@ import { useState } from "react"
 import styles from "./addExpense.module.css"
 import { expenseTypes, expensesData } from "../../assets/data";
 import { checkType } from "../../assets/utils";
+import { useDispatch } from 'react-redux';
+import { AddNewExpense } from "../../store/expensesSlice";
 
-function AddExpense({ showHideModal, AddNewExpense }) {
+function AddExpense({ showHideModal }) {
+
+  // values from store
+  const dispatch = useDispatch();
 
   // variable
   const [newName, setNewName] = useState("");
@@ -31,7 +36,7 @@ function AddExpense({ showHideModal, AddNewExpense }) {
               "amount": Number(newAmount)
             }
 
-            AddNewExpense(newExpense);
+            dispatch(AddNewExpense(newExpense));
             showHideModal("addExpenseModal", false);
           }
         } else {

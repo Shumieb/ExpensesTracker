@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react"
-import styles from "./updateBalance.module.css"
+import { useEffect, useState } from "react";
+import styles from "./updateBalance.module.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { UpdateCurrentBalance } from "../../store/expensesSlice";
 
-function UpdateBalance({ showHideModal, currentBalance, updateCurrentBalance }) {
+function UpdateBalance({ showHideModal }) {
+
+    // values from store
+    const currentBalance = useSelector((state) => state.expenses.balance);
+    const dispatch = useDispatch();
 
     // variables
     const [updatedBalance, setUpdatedBalance] = useState(0);
@@ -20,7 +26,7 @@ function UpdateBalance({ showHideModal, currentBalance, updateCurrentBalance }) 
             setError("please enter a value greater than 0");
             setDisplayError(true);
         } else {
-            updateCurrentBalance(updatedBalance);
+            dispatch(UpdateCurrentBalance(updatedBalance));
             showHideModal("updateBalanceModal", false)
         }
     }

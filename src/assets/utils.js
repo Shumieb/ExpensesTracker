@@ -7,3 +7,8 @@ export const checkType = (array, value) => {
     })
     return found;
 }
+
+export const filterByStatus = (value, array) => {
+    let filteredData = array.filter(expense => expense.status == value);
+    return filteredData;
+}

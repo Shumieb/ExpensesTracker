@@ -1,14 +1,18 @@
-import styles from "./expense.module.css"
+import { UpdateExpenseToEdit, UpdateExpenseStatus, DeleteExpense } from "../../store/expensesSlice";
+import styles from "./expense.module.css";
+import { useDispatch } from 'react-redux';
 
-function Expense({ expense, showHideModal, updateExpenseToEdit, updateExpenseStatus, deleteExpense }) {
+function Expense({ expense, showHideModal }) {
 
+    // values from store    
+    const dispatch = useDispatch();
 
     // variables
     const paidClass = expense.status == "paid" ? styles.isPaid : '';
 
     // functions
     const showEditForm = () => {
-        updateExpenseToEdit(expense.id);
+        dispatch(UpdateExpenseToEdit(expense.id));
         showHideModal("editExpenseModal", true)
     }
 
@@ -26,7 +30,7 @@ function Expense({ expense, showHideModal, updateExpenseToEdit, updateExpenseSta
                 <button
                     className={styles.btn}
                     disabled={expense.status == "paid"}
-                    onClick={() => updateExpenseStatus(expense.id)}
+                    onClick={() => dispatch(UpdateExpenseStatus(expense.id))}
                 >Paid</button>
                 <button
                     className={styles.btn}
@@ -34,7 +38,7 @@ function Expense({ expense, showHideModal, updateExpenseToEdit, updateExpenseSta
                 >Edit</button>
                 <button
                     className={styles.btn}
-                    onClick={() => deleteExpense(expense.id)}
+                    onClick={() => dispatch(DeleteExpense(expense.id))}
                 >Delete</button>
             </div>
         </li>
