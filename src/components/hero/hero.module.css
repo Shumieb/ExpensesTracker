@@ -1,0 +1,17 @@
+.heroContainer {
+    color: #023535;
+    padding: 8px 16px;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(https://images.pexels.com/photos/7054399/pexels-photo-7054399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.heroContainer .text {
+    background-color: #0FC2C0;
+    padding: 8px 16px;
+    border-radius: 4px;
+}

@@ -1,14 +1,15 @@
 .expenses {
-    background-color: bisque;
-    width: 93%;
+    background-color: #023535;
+    width: 80%;
     margin: auto;
     border-radius: 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 16px;
+    padding: 12px 16px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
+    color: white;
 }
 
 .expenses:hover {
@@ -29,18 +30,18 @@
 }
 
 .expense .status {
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 2px;
     font-style: italic;
-    color: gray;
+    color: #94A69F;
     text-transform: capitalize;
 }
 
 .expense .type {
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 2px;
     font-style: italic;
-    color: gray;
+    color: #94A69F;
     text-transform: capitalize;
 }
 
@@ -53,8 +54,8 @@
 }
 
 .btn {
-    background-color: aqua;
-    border: 2px solid aqua;
+    background-color: #0FC2C0;
+    border: 2px solid #0FC2C0;
     font-size: 16px;
     padding: 2px 6px;
     margin-left: 8px;
@@ -68,5 +69,5 @@
 
 .isPaid {
     font-style: italic;
-    color: gray;
+    color: #94A69F;
 }

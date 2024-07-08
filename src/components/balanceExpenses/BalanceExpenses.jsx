@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { filterByStatus } from "../../assets/utils";
 import { useEffect, useState } from "react";
 
-function BalanceExpenses() {
+function BalanceExpenses({ showHideModal }) {
 
     // values from store
     const currentBalance = useSelector((state) => state.expenses.balance);
@@ -27,24 +27,21 @@ function BalanceExpenses() {
 
     return (
         <section className={styles.container}>
-            <div className={styles.top}>
-                <div className={styles.card}>
+            <div className={styles.cards}>
+                <div className={`${styles.card} ${styles.balance}`}>
                     <p className={styles.title}>Current Balance</p>
                     <p className={styles.body}><span>£</span> {currentBalance}</p>
+                    <button className={styles.btn}
+                        onClick={() => showHideModal("updateBalanceModal", true)}
+                    >Update Balance</button>
                 </div>
-                <div className={styles.card}>
-                    <p className={styles.title}>Balance After <br /> All Expenses </p>
-                    <p className={styles.body}><span>£</span> {currentBalance - outstandingBalance}</p>
-                </div>
-            </div>
-            <div className={styles.bottom}>
-                <div className={styles.card}>
-                    <p className={styles.title}>Outstanding Expenses<br /> Total</p>
-                    <p className={styles.body}><span>£</span> -{outstandingBalance}</p>
-                </div>
-                <div className={styles.card}>
-                    <p className={styles.title}>Paid Expenses<br /> Total</p>
-                    <p className={styles.body}><span>£</span> -{paidBalance}</p>
+                <div className={`${styles.card} ${styles.expenses}`}>
+                    <div className={styles.expense}>
+                        <p className={styles.title}>Outstanding Expenses Total <span>£ -{outstandingBalance}</span></p>
+                    </div>
+                    <div className={styles.expense}>
+                        <p className={styles.title}>Paid Expenses Total <span>£ -{paidBalance}</span></p>
+                    </div>
                 </div>
             </div>
         </section>

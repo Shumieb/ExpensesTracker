@@ -3,10 +3,9 @@ import Expense from "../expense/Expense"
 import styles from "./expensesList.module.css"
 
 import { useSelector, useDispatch } from 'react-redux';
+import FilterBar from "../filterBar/FilterBar";
 
-function ExpensesList({
-    showHideModal
-}) {
+function ExpensesList({ showHideModal }) {
 
     // values from store
     const selectedFilterType = useSelector((state) => state.expenses.selectedFilterType);
@@ -48,6 +47,16 @@ function ExpensesList({
 
     return (
         <section className={styles.list}>
+            <div>
+                <h2 className={styles.heading}>Expenses List</h2>
+                <p className={styles.hr}><hr /></p>
+                <div className={styles.btns}>
+                    <button className={styles.btn}
+                        onClick={() => showHideModal("addExpenseModal", true)}
+                    >Add New Expense</button>
+                </div>
+                <FilterBar />
+            </div>
             <ul className={styles.expensesList}>
                 {
                     displayedData.map(expense => {

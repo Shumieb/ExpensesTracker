@@ -1,3 +1,45 @@
 .list {
     padding: 8px 16px;
+    background-color: #d5dde3;
+    color: #023535;
+    min-height: 80vh;
+    padding-bottom: 25px;
+}
+
+.heading {
+    padding: 4px 8px;
+    font-size: 28px;
+    font-weight: normal;
+    margin-top: 20px;
+}
+
+.hr hr {
+    width: 170px;
+    margin: auto;
+    border: 2px solid #023535;
+    border-radius: 2px;
+}
+
+.btns {
+    width: 90%;
+    text-align: right;
+    margin-bottom: 16px;
+    padding: 4px;
+}
+
+.btn {
+    padding: 6px 12px;
+    font-weight: normal;
+    font-size: 17px;
+    outline: none;
+    border: 2px solid #023535;
+    border-radius: 4px;
+    background-color: #023535;
+    cursor: pointer;
+    color: #d5dde3;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
+}
+
+.btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 6px;
 }
