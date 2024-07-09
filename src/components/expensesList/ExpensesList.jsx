@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react"
-import Expense from "../expense/Expense"
-import styles from "./expensesList.module.css"
-
+import { useEffect, useState } from "react";
+import Expense from "../expense/Expense";
+import styles from "./expensesList.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import FilterBar from "../filterBar/FilterBar";
+import { storeData } from "../../assets/data";
+import { InitialExpenses } from "../../store/expensesSlice";
 
 function ExpensesList({ showHideModal }) {
 
@@ -17,6 +18,26 @@ function ExpensesList({ showHideModal }) {
     const [displayedData, setDisplayedData] = useState([]);
 
     // use effect
+    useEffect(() => {
+        // get data from local storage
+        let storedData = localStorage.getItem("storedExpenses");
+
+        if (!storedData) {
+            console.log("no data")
+            localStorage.setItem("storedExpenses", JSON.stringify(storeData));
+            dispatch(InitialExpenses(storeData));
+        } else {
+            dispatch(InitialExpenses(JSON.parse(storedData)));
+        }
+    }, [])
+
+    useEffect(() => {
+        if (expensesData.length > 0) {
+            localStorage.setItem("storedExpenses", JSON.stringify(expensesData));
+        }
+    }, [expensesData])
+
+
     useEffect(() => {
         let filteredData = [];
 
@@ -57,17 +78,41 @@ function ExpensesList({ showHideModal }) {
                 </div>
                 <FilterBar />
             </div>
-            <ul className={styles.expensesList}>
+            <div>
+                <ul className={styles.expensesList}>
+                    {
+                        displayedData.map(expense => {
+                            return <Expense
+                                expense={expense}
+                                key={expense.id}
+                                showHideModal={showHideModal}
+                            />
+                        })
+                    }
+                </ul>
+            </div>
+            <div>
                 {
-                    displayedData.map(expense => {
-                        return <Expense
-                            expense={expense}
-                            key={expense.id}
-                            showHideModal={showHideModal}
-                        />
-                    })
+                    (displayedData.length <= 0 && selectedFilterType != "All" && selectedFilterStatus != "all")
+                        ? <p className={styles.emptyMsg}>There are no {selectedFilterStatus} expenses of type {selectedFilterType.toLowerCase()}</p>
+                        : ""
                 }
-            </ul>
+                {
+                    (displayedData.length <= 0 && selectedFilterType == "All" && selectedFilterStatus == "all")
+                        ? <p className={styles.emptyMsg}>There are no expenses in the expenses list.</p>
+                        : ""
+                }
+                {
+                    (displayedData.length <= 0 && selectedFilterType == "All" && selectedFilterStatus != "all")
+                        ? <p className={styles.emptyMsg}>There are no {selectedFilterStatus} expenses of type {selectedFilterType.toLowerCase()} in the expenses list.</p>
+                        : ""
+                }
+                {
+                    (displayedData.length <= 0 && selectedFilterType != "All" && selectedFilterStatus == "all")
+                        ? <p className={styles.emptyMsg}>There are no expenses of type {selectedFilterType.toLowerCase()} in the expenses list.</p>
+                        : ""
+                }
+            </div>
         </section>
     )
 }

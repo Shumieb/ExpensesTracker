@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    balance: 8000,
+    balance: 0,
     expensesData: [],
     selectedFilterType: "All",
     selectedFilterStatus: "all",
@@ -30,9 +30,13 @@ export const expensesSlice = createSlice({
             if (expense) {
                 expense.status = "paid"
             }
+            state.balance -= expense.amount;
         },
         DeleteExpense: (state, action) => {
             state.expensesData.splice(state.expensesData.findIndex((expense) => expense.id === action.payload), 1);
+            if (state.expensesData.length <= 0) {
+                localStorage.setItem("storedExpenses", JSON.stringify(state.expensesData));
+            }
         },
         UpdateExpense: (state, action) => {
             const expense = state.expensesData.find((expense) => expense.id === action.payload.id);

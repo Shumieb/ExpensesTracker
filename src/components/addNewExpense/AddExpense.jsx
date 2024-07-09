@@ -1,6 +1,6 @@
 import { useState } from "react"
 import styles from "./addExpense.module.css"
-import { expenseTypes, expensesData } from "../../assets/data";
+import { expenseTypes, storeData } from "../../assets/data";
 import { checkType } from "../../assets/utils";
 import { useDispatch } from 'react-redux';
 import { AddNewExpense } from "../../store/expensesSlice";
@@ -25,7 +25,7 @@ function AddExpense({ showHideModal }) {
       if (newAmount != 0) {
         if (newType != "default") {
           let validType = checkType(expenseTypes, newType);
-          let newId = expensesData.length + Math.random();
+          let newId = storeData.length + Math.random();
 
           if (validType) {
             let newExpense = {

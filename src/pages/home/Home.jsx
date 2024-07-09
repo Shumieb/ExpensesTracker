@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./home.module.css";
 import BalanceExpenses from "../../components/balanceExpenses/BalanceExpenses";
 import ExpensesList from "../../components/expensesList/ExpensesList";
-import { expensesData } from "../../assets/data";
 import UpdateBalance from "../../components/updateBalance/UpdateBalance";
 import AddExpense from "../../components/addNewExpense/AddExpense";
 import EditExpense from "../../components/editExpense/EditExpense";
 import Hero from "../../components/hero/Hero";
 import { useDispatch } from 'react-redux';
-import { InitialExpenses } from "../../store/expensesSlice";
 
 function Home() {
 
@@ -21,9 +19,7 @@ function Home() {
     const [displayEditExpenseModal, setDisplayEditExpenseModal] = useState(false);
 
     // use effect
-    useEffect(() => {
-        dispatch(InitialExpenses(expensesData))
-    }, [])
+
 
     // functions
     const showHideModal = (modal, action) => {

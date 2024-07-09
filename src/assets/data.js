@@ -8,7 +8,7 @@ export const expenseTypes = [
     { "id": 5, "name": "Other" }
 ]
 
-export const expensesData = [
+export const storeData = [
     {
         "id": 1,
         "name": "Electricity",
