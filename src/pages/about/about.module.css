@@ -1,0 +1,45 @@
+.about {
+    min-height: 86vh;
+    font-size: 20px;
+}
+
+.description {
+    text-align: center;
+    background-color: #023535;
+    color: #d5dde3;
+    padding: 16px 18px;
+}
+
+.about .text {
+    padding: 12px;
+    width: 70%;
+    margin: auto;
+}
+
+.about .text h2 {
+    font-size: 27px;
+    padding: 4px;
+}
+
+.about .text span hr {
+    border: 2px solid #d5dde3;
+    margin: auto;
+    width: 210px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+}
+
+.about .text p {
+    line-height: 1.3;
+    font-size: 22px;
+}
+
+.about .text .skill {
+    font-weight: bold;
+}
+
+.about .placeholder {
+    background-color: #d5dde3;
+    width: 100%;
+    height: 10vh;
+}

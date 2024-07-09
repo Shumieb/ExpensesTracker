@@ -1,4 +1,4 @@
 # Expenses Tracker
 
-## Built using React JS, CSS, Reduxtoolkit
+## Built using React JS, React Router, CSS, Redux Toolkit
 
