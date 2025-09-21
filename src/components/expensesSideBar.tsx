@@ -18,8 +18,8 @@ const ExpensesSideBar = () => {
                 <ul>
                     <li className="mb-6">
                         <Link
-                            to="/expenses/"
-                            className={(location.pathname == "/expenses/") ?
+                            to="/expenses"
+                            className={(location.pathname == "/expenses") ?
                                 "expenses-link-active" :
                                 "expenses-link-inactive"
                             }

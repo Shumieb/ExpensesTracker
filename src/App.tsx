@@ -6,6 +6,8 @@ import Expenses from './pages/expenses';
 import Dashboard from './components/dashboard';
 import Transactions from './components/transactions';
 import Profile from './components/profile';
+import EditAddTransaction from './components/editAddTransaction';
+import DeleteTransaction from './components/deleteTransaction';
 
 function App() {
 
@@ -23,7 +25,7 @@ function App() {
           element: <Expenses />,
           children: [
             {
-              path: "/expenses/",
+              path: "/expenses",
               element: <Dashboard />
             },
             {
@@ -33,6 +35,14 @@ function App() {
             {
               path: "/expenses/profile",
               element: <Profile />
+            },
+            {
+              path: "/expenses/addEdit/:id",
+              element: <EditAddTransaction />
+            },
+            {
+              path: "/expenses/delete/:id",
+              element: <DeleteTransaction />
             }
           ]
         },

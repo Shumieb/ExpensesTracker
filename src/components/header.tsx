@@ -2,7 +2,7 @@ import { NavLink } from "react-router"
 
 const Header = () => {
     return (
-        <header className="flex justify-between items-center w-[80%] mx-auto py-4 mb-5">
+        <header className="flex justify-between items-center w-[90%] mx-auto py-4 mb-5">
             <NavLink to="/" className="text-2xl hover:underline decoration-sky-900">Expenses Tracker</NavLink>
             <ul className="flex justify-between items-center gap-4 text-xl">
                 <li>

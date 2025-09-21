@@ -1,14 +1,14 @@
 import { useState } from "react"
-import DateToggle from "./UI/dateToggle"
-import TotalsCard from "./UI/totalsCard"
+import DateToggle from "./dateToggle"
+import TotalsCard from "./totalsCard"
 import CategoryTotalsGraph from "./categoryTotalsGraph"
 import MonthlyBalanceGraph from "./monthlyBalanceGraph"
 import WeeklyExpensesGraph from "./weeklyExpensesGraph"
 
 const Dashboard = () => {
 
+    // state
     const [month, setMonth] = useState(9)
-
 
     // function runs when month is changed
     const HandleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
