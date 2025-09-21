@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+
+/** expenses side bar styles**/
+.expenses-link-active {
+    @apply bg-sky-900 text-white mx-auto block py-2 text-lg rounded-xl w-[80%]
+}
+
+.expenses-link-inactive {
+    @apply text-black mx-auto block py-2 text-lg rounded-xl w-[80%]
+}

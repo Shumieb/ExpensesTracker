@@ -1,27 +1,27 @@
-import { Link } from "react-router"
+import { NavLink } from "react-router"
 
 const Header = () => {
     return (
         <header className="flex justify-between items-center w-[80%] mx-auto py-4 mb-5">
-            <Link to="/" className="text-2xl hover:underline decoration-pink-900">Expenses Tracker</Link>
+            <NavLink to="/" className="text-2xl hover:underline decoration-sky-900">Expenses Tracker</NavLink>
             <ul className="flex justify-between items-center gap-4 text-xl">
                 <li>
-                    <Link
+                    <NavLink
                         to="/"
-                        className="hover:underline decoration-pink-900"
-                    >Home</Link>
+                        className="hover:underline decoration-sky-900"
+                    >Home</NavLink>
                 </li>
                 <li>
-                    <Link
+                    <NavLink
                         to="/expenses"
-                        className="hover:underline decoration-pink-900"
-                    >Expenses</Link>
+                        className="hover:underline decoration-sky-900"
+                    >Expenses</NavLink>
                 </li>
                 <li>
-                    <Link
+                    <NavLink
                         to="/about"
-                        className="hover:underline decoration-pink-900"
-                    >About</Link>
+                        className="hover:underline decoration-sky-900"
+                    >About</NavLink>
                 </li>
             </ul>
         </header>
