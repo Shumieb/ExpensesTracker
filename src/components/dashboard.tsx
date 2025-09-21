@@ -2,11 +2,12 @@ import { useState } from "react"
 import DateToggle from "./UI/dateToggle"
 import TotalsCard from "./UI/totalsCard"
 import CategoryTotalsGraph from "./categoryTotalsGraph"
+import MonthlyBalanceGraph from "./monthlyBalanceGraph"
+import WeeklyExpensesGraph from "./weeklyExpensesGraph"
 
 const Dashboard = () => {
 
     const [month, setMonth] = useState(9)
-
 
 
     // function runs when month is changed
@@ -52,10 +53,11 @@ const Dashboard = () => {
             {/*  Expenses Total By Category*/}
             <CategoryTotalsGraph month={month} />
 
-            <section>
-
+            {/*  Trend Graphs - Monthly Balance - Expenses per week*/}
+            <section className="grid grid-cols-2 gap-4">
+                <MonthlyBalanceGraph month={month} />
+                <WeeklyExpensesGraph month={month} />
             </section>
-
         </section>
     )
 }

@@ -10,9 +10,9 @@ const CategoryTotalsGraph = ({ month }: PropType) => {
     let monthText = getMonthText(month)
 
     return (
-        <section className="bg-white rounded-md shadow-md py-6 px-3">
-            <p className="text-xl">Total expenses</p>
-            <p className="text-gray-400">{monthText} 2025</p>
+        <section className="bg-white rounded-md shadow-md py-6 px-3 mb-6">
+            <p className="text-xl capitalize">Total expenses</p>
+            <p className="text-gray-400 capitalize">{monthText} 2025</p>
             <div>
                 <img src={img} alt="category totals" className="h-96 mx-auto" />
             </div>

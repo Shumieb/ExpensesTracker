@@ -22,24 +22,27 @@ const DateToggle = ({ HandleMonthChange, value }: PropTypes) => {
     ]
 
     return (
-        <select
-            onChange={HandleMonthChange}
-            value={value}
-            className="text-lg bg-white py-2 px-4 shadow-sm rounded-sm text-gray-500 outline-0"
-        >
-            {
-                months.map(month => {
-                    return (
-                        <option
-                            value={month.value}
-                            key={month.value}
-                        >
-                            {month.month}
-                        </option>
-                    )
-                })
-            }
-        </select>
+        <div className="text-lg bg-white py-2 px-4 shadow-sm rounded-sm text-gray-500">
+            <select
+                onChange={HandleMonthChange}
+                value={value}
+                className="px-4 outline-0"
+            >
+                {
+                    months.map(month => {
+                        return (
+                            <option
+                                value={month.value}
+                                key={month.value}
+                            >
+                                {month.month}
+                            </option>
+                        )
+                    })
+                }
+            </select>
+        </div>
+
     )
 }
 
