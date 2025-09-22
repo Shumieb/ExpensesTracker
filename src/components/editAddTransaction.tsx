@@ -1,39 +1,90 @@
-import { useState } from "react"
-import { Link } from "react-router"
+import { useEffect, useState } from "react"
+import { Link, redirect, useParams } from "react-router"
+import { accountsData, categoryData, frequencyData, typeOfTransaction } from "../mockData/MockData";
+import type { AccountType, CategoryType, FrequencyType, TransactionType } from "../entityTypes/entityTypes";
+import useTransactionsStore from "../stores/transactionStore";
+import { v4 as uuidv4 } from 'uuid';
 
 const EditAddTransaction = () => {
 
+    // route
+    let params = useParams();
+    let route = params.id
+
     // state
-    const [type, setType] = useState("expense")
+    const [formHeading, setFormHeading] = useState("Add New Transaction")
+    const [btnText, setBtnText] = useState("Add")
+
+    // state - transaction data
+    const [transaction, setTransaction] = useState<TransactionType | null>()
+    const [type, setType] = useState("100a")
     const [description, setDescription] = useState("")
     const [amount, setAmount] = useState("")
     const [category, setCategory] = useState("")
     const [frequency, setFrequency] = useState("")
     const [date, setDate] = useState("2025-09-12")
     const [account, setAccount] = useState("")
+
+    // state - error
     const [error, setError] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
 
-    const categories = [
-        { id: "100a", name: "Grocery Shopping" },
-        { id: "200a", name: "Clothes Shopping" },
-        { id: "300a", name: "Tech Shopping" },
-        { id: "400a", name: "Utility Bills" },
-        { id: "500a", name: "Rent/Mortgage" },
-    ]
+    // state - input data
+    const [categories, setCategories] = useState<CategoryType[] | null>([])
+    const [transType, setTransTypes] = useState<CategoryType[] | null>([])
+    const [frequencies, setFrequencies] = useState<FrequencyType[] | null>([])
+    const [accounts, setAccounts] = useState<AccountType[] | null>([])
 
-    const frequencies = [
-        { id: "100a", name: "Once only" },
-        { id: "200a", name: "Monthly" },
-        { id: "300a", name: "Yearly" },
-    ]
+    //stores
+    const getTransactionById = useTransactionsStore.getState().getTransactionById
+    const updateTransaction = useTransactionsStore.getState().updateTransaction
+    const addTransaction = useTransactionsStore.getState().addTransaction
 
-    const accounts = [
-        { id: "100a", name: "Current" },
-        { id: "200a", name: "Current 1" },
-        { id: "300a", name: "Current 2" },
-    ]
+    // useEffect - run when route changes
+    useEffect(() => {
+        // set form select data
+        setCategories(categoryData)
+        setFrequencies(frequencyData)
+        setAccounts(accountsData)
+        setTransTypes(typeOfTransaction)
 
+        // if route is not present return
+        if (!route) {
+            redirect("/expenses/transactions")
+            return
+        }
+
+        if (route == "add") {
+            // add new transaction
+            setFormHeading("Add New Transaction")
+            setBtnText("Add")
+
+        } else {
+            // editing transaction
+            setFormHeading("Edit Transaction")
+            setBtnText("Edit")
+
+            // fetch data
+            let trans = getTransactionById(route)
+
+            // runs when trans is not found
+            if (!trans) {
+                return
+            }
+
+            // set state values
+            setTransaction(trans)
+            setType(trans.type.Id)
+            setDescription(trans.description)
+            setAmount(trans.amount.toString())
+            setCategory(trans.Category.Id)
+            setFrequency(trans.Frequency.Id)
+            setDate(trans.date)
+            setAccount(trans.Account.Id)
+        }
+    }, [route])
+
+    // function - runs on submit
     const HandleSubmit = (e: any) => {
         e.preventDefault()
 
@@ -56,11 +107,69 @@ const EditAddTransaction = () => {
         } else if (date.trim().length < 4) {
             setErrorMsg("Please select a date")
             setError(true)
+        } else {
+            if (!route || !transaction) return
+
+            if (route == "add") {
+                // generate new id
+                let newId = uuidv4();
+                // set new category
+                //let newCat = 
+                // set new account
+                // set new frequency
+                // set new type
+
+                // create new transaction
+                let newTransaction: TransactionType = {
+                    Id: newId,
+                    description: description,
+                    amount: parseFloat(amount),
+                    categoryId: category,
+                    Category: { Id: transaction.Category.Id, name: transaction.Category.name },
+                    accountId: account,
+                    Account: { Id: transaction.Account.Id, name: transaction.Account.name },
+                    frequencyId: frequency,
+                    Frequency: { Id: transaction.Frequency.Id, name: transaction.Frequency.name },
+                    date: date,
+                    status: "Paid",
+                    typeId: type,
+                    type: { Id: transaction.type.Id, name: transaction.type.name }
+                }
+                //update state
+                addTransaction(newTransaction)
+
+            } else {
+                // set new category
+                // set new account
+                // set new frequency
+                // set new type
+
+                // create updated transaction
+                let updatedTransaction: TransactionType = {
+                    Id: transaction.Id,
+                    description: description,
+                    amount: parseFloat(amount),
+                    categoryId: category,
+                    Category: { Id: transaction.Category.Id, name: transaction.Category.name },
+                    accountId: account,
+                    Account: { Id: transaction.Account.Id, name: transaction.Account.name },
+                    frequencyId: frequency,
+                    Frequency: { Id: transaction.Frequency.Id, name: transaction.Frequency.name },
+                    date: date,
+                    status: "Paid",
+                    typeId: type,
+                    type: { Id: transaction.type.Id, name: transaction.type.name }
+                }
+                // update state
+                updateTransaction(route, updatedTransaction)
+
+            }
         }
 
         console.log(type, description, amount, category, account, frequency, date)
     }
 
+    // function - reset error
     const removeError = () => {
         setError(false)
         setErrorMsg("")
@@ -72,38 +181,33 @@ const EditAddTransaction = () => {
                 onSubmit={HandleSubmit}
                 className="w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg"
             >
-                <p className="text-2xl text-center mb-12">Add New Transaction</p>
+                <p className="text-2xl text-center mb-12 capitalize">{formHeading}</p>
 
                 <section className="w-[80%] mx-auto">
                     {/* type */}
                     <div className="grid grid-cols-2 gap-4 mb-8">
-                        <div>
-                            <input
-                                type="radio"
-                                name="type"
-                                value={"expense"}
-                                checked={type == "expense"}
-                                onChange={(e) => setType(e.target.value)}
-                                onFocus={removeError}
-                            />
-                            <label className="ms-2">Expense</label>
-                        </div>
-                        <div>
-                            <input
-                                type="radio"
-                                name="type"
-                                value={"income"}
-                                checked={type == "income"}
-                                onChange={(e) => setType(e.target.value)}
-                                onFocus={removeError}
-                            />
-                            <label className="ms-2">Income</label>
-                        </div>
+                        {
+                            transType && transType.map((types) => {
+                                return (
+                                    <div key={types.Id}>
+                                        <input
+                                            type="radio"
+                                            name="type"
+                                            value={types.Id}
+                                            checked={type == types.Id}
+                                            onChange={(e) => setType(e.target.value)}
+                                            onFocus={removeError}
+                                        />
+                                        <label className="ms-2 capitalize">{types.name}</label>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
 
                     {/* description */}
                     <div className="mb-8 flex flex-col">
-                        <label>Description</label>
+                        <label className="mb-2 text-gray-500">Description</label>
                         <input
                             type="text"
                             value={description}
@@ -115,9 +219,9 @@ const EditAddTransaction = () => {
 
                     {/* amount */}
                     <div className="mb-8 flex flex-col">
-                        <label className="me-2">Amount</label>
+                        <label className="mb-2 text-gray-500">Amount</label>
                         <input
-                            type="number"
+                            type="float"
                             min={0}
                             value={amount}
                             placeholder="0"
@@ -128,79 +232,89 @@ const EditAddTransaction = () => {
                     </div>
 
                     {/* category */}
-                    <div className="grid grid-cols-2 gap-4 mb-12">
-                        <div className="w-[100%]">
-                            <select
-                                className="outline-0 w-[100%] py-1 mx-auto"
-                                value={category}
-                                onChange={(e) => setCategory(e.target.value)}
-                                onFocus={removeError}
-                            >
-                                <option value={""}>Select A Category</option>
-                                {
-                                    categories.map(category => {
-                                        return (
-                                            <option value={category.id} key={category.id}>{category.name}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
-                        {/* account */}
-                        <div className="w-[100%]">
-                            <select
-                                className="outline-0 w-[100%] py-1 mx-auto"
-                                value={account}
-                                onChange={(e) => setAccount(e.target.value)}
-                                onFocus={removeError}
-                            >
-                                <option value={""}>Select An Account</option>
-                                {
-                                    accounts.map(account => {
-                                        return (
-                                            <option value={account.id} key={account.id}>{account.name}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
+                    <div className="mb-8 flex flex-col">
+                        <label className="mb-2 text-gray-500">Category</label>
+                        <select
+                            className="outline-0 w-[100%] py-1 mx-auto border-b-2 border-gray-400"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            onFocus={removeError}
+                        >
+                            <option value={""}>Select A Category</option>
+                            {
+                                categories && categories.map(category => {
+                                    return (
+                                        <option
+                                            value={category.Id}
+                                            key={category.Id}
+                                        >{category.name}</option>
+                                    )
+                                })
+                            }
+                        </select>
                     </div>
 
-                    {/* frequency*/}
-                    <div className="grid grid-cols-2 gap-4 mb-16">
-                        {/* frequency */}
-                        <div className="w-[100%]">
-                            <select
-                                className="outline-0 w-[100%] py-1 mx-auto"
-                                value={frequency}
-                                onChange={(e) => setFrequency(e.target.value)}
-                                onFocus={removeError}
-                            >
-                                <option value={""}>Select Frequency</option>
-                                {
-                                    frequencies.map(frequency => {
-                                        return (
-                                            <option value={frequency.id} key={frequency.id}>{frequency.name}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
-                        {/* date */}
-                        <div className="flex justify-between gap-2">
+                    {/* account */}
+                    <div className="mb-8 flex flex-col">
+                        <label className="mb-2 text-gray-500">Account</label>
+                        <select
+                            className="outline-0 w-[100%] py-1 mx-auto border-b-2 border-gray-400"
+                            value={account}
+                            onChange={(e) => setAccount(e.target.value)}
+                            onFocus={removeError}
+                        >
+                            <option value={""}>Select An Account</option>
                             {
-                                (frequency == "2") ?
-                                    <p className="pt-0.5">Start Date:</p> :
-                                    <p className="pt-0.5">Date:</p>
+                                accounts && accounts.map(account => {
+                                    return (
+                                        <option
+                                            value={account.Id}
+                                            key={account.Id}
+                                        >
+                                            {account.name}</option>
+                                    )
+                                })
                             }
-                            <input
-                                type="date"
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                onFocus={removeError}
-                                className="outline-0 border-b-2 border-gray-500"
-                            />
-                        </div>
+                        </select>
+                    </div>
+
+                    {/* frequency */}
+                    <div className="mb-8 flex flex-col">
+                        <label className="mb-2 text-gray-500">Frequency</label>
+                        <select
+                            className="outline-0 w-[100%] py-1 mx-auto border-b-2 border-gray-400"
+                            value={frequency}
+                            onChange={(e) => setFrequency(e.target.value)}
+                            onFocus={removeError}
+                        >
+                            <option value={""}>Select Frequency</option>
+                            {
+                                frequencies && frequencies.map(frequency => {
+                                    return (
+                                        <option
+                                            value={frequency.Id}
+                                            key={frequency.Id}
+                                        >{frequency.name}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+
+                    {/* date */}
+                    <div className="flex flex-col gap-4 mb-14">
+                        {
+                            (frequency == "2") ?
+                                <p className="mb-2 text-gray-500">Start Date:</p> :
+                                <p className="mb-2 text-gray-500">Date:</p>
+                        }
+                        <input
+                            type="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            onFocus={removeError}
+                            className="outline-0 border-b-2 border-gray-500"
+                        />
                     </div>
 
                     {/* error message */}
@@ -212,7 +326,7 @@ const EditAddTransaction = () => {
                     <div className="flex justify-center gap-5">
                         <input
                             type="submit"
-                            value="Add"
+                            value={btnText}
                             className="bg-sky-900 w-[30%] text-white text-lg py-2 px-4 rounded-lg cursor-pointer shadow-md hover:shadow-2xl"
                         />
                         <Link to={"/expenses/transactions"}

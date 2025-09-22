@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react"
 import { TransactionTableRow } from "./transactionTableRow"
+import type { TransactionType } from "../entityTypes/entityTypes"
+import useTransactionsStore from "../stores/transactionStore"
 
 const TransactionTable = () => {
+
+    // state
+    const [transactionsData, setTransactionsData] = useState<TransactionType[]>([])
+
+    //stores
+    const storeTransactionData = useTransactionsStore((state) => state.initializeTransactions)
+
+    // initialise
+    useEffect(() => {
+        let transactions = storeTransactionData()
+        //console.log(transactions)
+        setTransactionsData(transactions)
+
+    }, [])
 
     return (
         <table className="my-4 border border-gray-400 w-[100%]">
@@ -15,11 +32,16 @@ const TransactionTable = () => {
                 </tr>
             </thead>
             <tbody className="">
-                <TransactionTableRow />
-                <TransactionTableRow />
-                <TransactionTableRow />
-                <TransactionTableRow />
-                <TransactionTableRow />
+                {
+                    transactionsData && transactionsData.map(transaction => {
+                        return (
+                            <TransactionTableRow
+                                transaction={transaction}
+                                key={transaction.Id}
+                            />
+                        )
+                    })
+                }
             </tbody>
         </table>
     )

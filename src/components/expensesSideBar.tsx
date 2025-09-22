@@ -19,28 +19,31 @@ const ExpensesSideBar = () => {
                     <li className="mb-6">
                         <Link
                             to="/expenses"
-                            className={(location.pathname == "/expenses") ?
-                                "expenses-link-active" :
-                                "expenses-link-inactive"
-                            }
+                            className={`mx-auto block py-2 text-lg rounded-xl w-[80%] 
+                                ${(location.pathname == "/expenses") ?
+                                    "bg-sky-900 text-white" :
+                                    "text-black"
+                                }`}
                         >Dashboard</Link>
                     </li>
                     <li className="mb-6">
                         <Link
                             to="/expenses/transactions"
-                            className={(location.pathname == "/expenses/transactions") ?
-                                "expenses-link-active" :
-                                "expenses-link-inactive"
-                            }
+                            className={`mx-auto block py-2 text-lg rounded-xl w-[80%] 
+                                ${(location.pathname == "/expenses/transactions") ?
+                                    "bg-sky-900 text-white" :
+                                    "text-black"}
+                            `}
                         >Transactions</Link>
                     </li>
                     <li className="mb-6">
                         <Link
                             to="/expenses/profile"
-                            className={(location.pathname == "/expenses/profile") ?
-                                "expenses-link-active" :
-                                "expenses-link-inactive"
-                            }
+                            className={`mx-auto block py-2 text-lg rounded-xl w-[80%] 
+                                ${(location.pathname == "/expenses/profile") ?
+                                    "bg-sky-900 text-white" :
+                                    "text-black"}
+                            `}
                         >Profile</Link>
                     </li>
                 </ul>
