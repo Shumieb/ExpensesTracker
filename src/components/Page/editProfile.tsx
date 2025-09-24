@@ -68,7 +68,7 @@ const EditProfile = () => {
     }
 
     return (
-        <section>
+        <section className="my-5">
             <form onSubmit={HandleSubmit}
                 className="w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg border-2 border-gray-300"
             >

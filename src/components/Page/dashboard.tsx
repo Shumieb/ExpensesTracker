@@ -16,7 +16,7 @@ const Dashboard = () => {
     }
 
     return (
-        <section>
+        <section className="my-5">
             {/*  Page Header */}
             <div className="mb-6 flex justify-between items-center">
                 <p className="text-2xl">Current Account</p>

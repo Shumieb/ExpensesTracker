@@ -4,7 +4,7 @@ import TransactionTable from "../transactionTable"
 const Transactions = () => {
 
     return (
-        <section className=" bg-white py-6 px-3 rounded-lg min-h-[80vh]">
+        <section className=" bg-white py-6 px-3 rounded-lg min-h-[80vh] my-5">
             <p className="text-2xl capitalize mb-6">All Transactions</p>
             <div className="mb-6 text-end">
                 <Link to="/expenses/addEdit/add"

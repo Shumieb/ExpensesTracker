@@ -250,7 +250,7 @@ const EditAddTransaction = () => {
 
     // jsx to display
     return (
-        <section>
+        <section className="my-5">
             <form onSubmit={HandleSubmit}
                 className={`w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg border-2 ${typeId == "100a" ? "border-red-300" : "border-green-300"}`}
             >

@@ -4,7 +4,7 @@ import { FaPenToSquare, FaTrashCan } from "react-icons/fa6";
 
 const Profile = () => {
     return (
-        <section className=" bg-white py-6 px-3 rounded-lg min-h-[80vh]">
+        <section className=" bg-white py-6 px-3 rounded-lg min-h-[80vh] my-5">
             <p className="text-2xl capitalize mb-6">Profile</p>
             <div className='grid grid-cols-3 gap-4 mb-6'>
                 <img

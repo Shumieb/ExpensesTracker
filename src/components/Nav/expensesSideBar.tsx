@@ -6,7 +6,7 @@ const ExpensesSideBar = () => {
     let location = useLocation()
 
     return (
-        <section className="w-[20%] bg-white rounded-lg text-center py-6 px-2">
+        <section className="w-[20%] bg-white rounded-lg text-center py-6 px-2 my-5">
             <section className="px-2 py-2">
                 <img src={img} alt="user-img"
                     className="rounded-full mx-auto w-30 h-30 object-fill"
