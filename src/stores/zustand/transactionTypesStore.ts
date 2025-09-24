@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
-import type { TypeOfTransaction } from '../entityTypes/entityTypes';
-import { typeOfTransaction } from '../mockData/MockData';
+import type { TypeOfTransaction } from '../../entityTypes/entityTypes';
+import { typeOfTransaction } from '../../mockData/MockData';
 
 const useTransactionTypesStore = create(
     combine(
@@ -15,7 +15,7 @@ const useTransactionTypesStore = create(
             },
 
             //Function to get category by Id
-            getAccountById: (id: string) => {
+            getTypesById: (id: string) => {
                 return useTransactionTypesStore.getState().types
                     .find((type: TypeOfTransaction) => type.Id === id);
             },

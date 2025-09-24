@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react"
-import { Link, redirect, useParams } from "react-router"
-import { accountsData, categoryData, frequencyData, typeOfTransaction } from "../mockData/MockData";
-import type { AccountType, CategoryType, FrequencyType, TransactionType } from "../entityTypes/entityTypes";
-import useTransactionsStore from "../stores/transactionStore";
+import { redirect, useParams } from "react-router"
+import type { AccountType, CategoryType, FrequencyType, Status, TransactionType, TypeOfTransaction } from "../entityTypes/entityTypes";
+import useTransactionsStore from "../stores/zustand/transactionStore";
 import { v4 as uuidv4 } from 'uuid';
+import SelectComponent from "./selectComponent";
+import RadioBtnComponent from "./radioBtnComponent";
+import CancelBtn from "./cancelBtn";
+import SubmitBtn from "./submitBtn";
+import DateInputComponent from "./dateInputComponent";
+import NumberInputComponent from "./numberInputComponent";
+import TextInputComponent from "./textInputComponent";
+import useCategoriesStore from "../stores/zustand/categoriesStore";
+import useFrequenciesStore from "../stores/zustand/frequenciesStore";
+import useAccountsStore from "../stores/zustand/accountsStore";
+import useTransactionTypesStore from "../stores/zustand/transactionTypesStore";
+import { transactionStatus } from "../mockData/MockData";
 
 const EditAddTransaction = () => {
 
     // route
     let params = useParams();
-    let route = params.id
+    let transactionId = params.id
 
     // state
     const [formHeading, setFormHeading] = useState("Add New Transaction")
@@ -17,13 +28,14 @@ const EditAddTransaction = () => {
 
     // state - transaction data
     const [transaction, setTransaction] = useState<TransactionType | null>()
-    const [type, setType] = useState("100a")
+    const [typeId, setTypeId] = useState("100a")
     const [description, setDescription] = useState("")
     const [amount, setAmount] = useState("")
-    const [category, setCategory] = useState("")
-    const [frequency, setFrequency] = useState("")
+    const [categoryId, setCategoryId] = useState("")
+    const [frequencyId, setFrequencyId] = useState("")
     const [date, setDate] = useState("2025-09-12")
-    const [account, setAccount] = useState("")
+    const [accountId, setAccountId] = useState("")
+    const [transStatusId, setTransStatusId] = useState("2")
 
     // state - error
     const [error, setError] = useState(false)
@@ -34,27 +46,51 @@ const EditAddTransaction = () => {
     const [transType, setTransTypes] = useState<CategoryType[] | null>([])
     const [frequencies, setFrequencies] = useState<FrequencyType[] | null>([])
     const [accounts, setAccounts] = useState<AccountType[] | null>([])
+    const [status, setStatus] = useState<Status[] | null>([])
 
     //stores
+    // transactions store
     const getTransactionById = useTransactionsStore.getState().getTransactionById
     const updateTransaction = useTransactionsStore.getState().updateTransaction
     const addTransaction = useTransactionsStore.getState().addTransaction
+    // categories store
+    const getCategories = useCategoriesStore.getState().initializeCategories
+    const getCategoryById = useCategoriesStore.getState().getCategoryById
+    // frequencies store
+    const getFrequencies = useFrequenciesStore.getState().initializeFrequencies
+    const getFrequencyById = useFrequenciesStore.getState().getFrequencyById
+    // accounts store
+    const getAccounts = useAccountsStore.getState().initializeAccounts
+    const getAccountById = useAccountsStore.getState().getAccountById
+    // trans types
+    const getTransTypes = useTransactionTypesStore.getState().initializeTypes
+    const getTypesById = useTransactionTypesStore.getState().getTypesById
 
     // useEffect - run when route changes
     useEffect(() => {
         // set form select data
+        // set categories
+        let categoryData = getCategories()
         setCategories(categoryData)
+        // get frequencies
+        let frequencyData = getFrequencies()
         setFrequencies(frequencyData)
+        // get accounts
+        let accountsData = getAccounts()
         setAccounts(accountsData)
+        // get trans types
+        let typeOfTransaction = getTransTypes()
         setTransTypes(typeOfTransaction)
+        // set status
+        setStatus(transactionStatus)
 
-        // if route is not present return
-        if (!route) {
+        // if route is not present redirect
+        if (!transactionId) {
             redirect("/expenses/transactions")
             return
         }
 
-        if (route == "add") {
+        if (transactionId == "add") {
             // add new transaction
             setFormHeading("Add New Transaction")
             setBtnText("Add")
@@ -64,28 +100,31 @@ const EditAddTransaction = () => {
             setFormHeading("Edit Transaction")
             setBtnText("Edit")
 
-            // fetch data
-            let trans = getTransactionById(route)
+            // fetch transaction data
+            let trans = getTransactionById(transactionId)
 
             // runs when trans is not found
             if (!trans) {
+                console.log("Failed to get transaction")
                 return
             }
 
             // set state values
             setTransaction(trans)
-            setType(trans.type.Id)
+            setTypeId(trans.type.Id)
             setDescription(trans.description)
             setAmount(trans.amount.toString())
-            setCategory(trans.Category.Id)
-            setFrequency(trans.Frequency.Id)
+            setCategoryId(trans.Category.Id)
+            setFrequencyId(trans.Frequency.Id)
             setDate(trans.date)
-            setAccount(trans.Account.Id)
+            setAccountId(trans.Account.Id)
+            setTransStatusId(trans.status.Id)
         }
-    }, [route])
+    }, [transactionId])
 
     // function - runs on submit
     const HandleSubmit = (e: any) => {
+        // prevent auto page refresh
         e.preventDefault()
 
         // error check
@@ -95,78 +134,103 @@ const EditAddTransaction = () => {
         } else if (amount == "") {
             setErrorMsg("Please enter an amount")
             setError(true)
-        } else if (category == "") {
+        } else if (categoryId == "") {
             setErrorMsg("Please select a category")
             setError(true)
-        } else if (account == "") {
+        } else if (accountId == "") {
             setErrorMsg("Please select an account")
             setError(true)
-        } else if (frequency == "") {
+        } else if (frequencyId == "") {
             setErrorMsg("Please select a frequency")
             setError(true)
         } else if (date.trim().length < 4) {
             setErrorMsg("Please select a date")
             setError(true)
         } else {
-            if (!route || !transaction) return
+            // when form data is valid
+            // is there is no id or transaction or status
+            if (!transactionId || !transaction || !status) {
+                console.log("missing values")
+                return
+            }
 
-            if (route == "add") {
+            /// set new category
+            let newCategory = getCategoryById(categoryId)
+            // set new account
+            let newAccount = getAccountById(accountId)
+            // set new frequency
+            let newFrequency = getFrequencyById(frequencyId)
+            // set new type
+            let newType = getTypesById(typeId)
+            // set status
+            let newStatus = status.find(status => status.Id == transStatusId)
+
+            // if no category, account, frequency, type, status
+            if (!newCategory || !newAccount || !newFrequency || !newType || !newStatus) {
+                console.log("could not set new values")
+                return
+            }
+
+            if (transactionId == "add") {
                 // generate new id
                 let newId = uuidv4();
-                // set new category
-                //let newCat = 
-                // set new account
-                // set new frequency
-                // set new type
-
                 // create new transaction
-                let newTransaction: TransactionType = {
-                    Id: newId,
-                    description: description,
-                    amount: parseFloat(amount),
-                    categoryId: category,
-                    Category: { Id: transaction.Category.Id, name: transaction.Category.name },
-                    accountId: account,
-                    Account: { Id: transaction.Account.Id, name: transaction.Account.name },
-                    frequencyId: frequency,
-                    Frequency: { Id: transaction.Frequency.Id, name: transaction.Frequency.name },
-                    date: date,
-                    status: "Paid",
-                    typeId: type,
-                    type: { Id: transaction.type.Id, name: transaction.type.name }
-                }
+                let newTransaction: TransactionType = createTransaction(
+                    newId,
+                    newCategory,
+                    newAccount,
+                    newFrequency,
+                    newStatus,
+                    newType
+                )
                 //update state
                 addTransaction(newTransaction)
 
             } else {
-                // set new category
-                // set new account
-                // set new frequency
-                // set new type
-
                 // create updated transaction
-                let updatedTransaction: TransactionType = {
-                    Id: transaction.Id,
-                    description: description,
-                    amount: parseFloat(amount),
-                    categoryId: category,
-                    Category: { Id: transaction.Category.Id, name: transaction.Category.name },
-                    accountId: account,
-                    Account: { Id: transaction.Account.Id, name: transaction.Account.name },
-                    frequencyId: frequency,
-                    Frequency: { Id: transaction.Frequency.Id, name: transaction.Frequency.name },
-                    date: date,
-                    status: "Paid",
-                    typeId: type,
-                    type: { Id: transaction.type.Id, name: transaction.type.name }
-                }
+                let updatedTransaction: TransactionType = createTransaction(
+                    transaction.Id,
+                    newCategory,
+                    newAccount,
+                    newFrequency,
+                    newStatus,
+                    newType
+                )
                 // update state
-                updateTransaction(route, updatedTransaction)
-
+                updateTransaction(transactionId, updatedTransaction)
             }
         }
 
-        console.log(type, description, amount, category, account, frequency, date)
+        console.log(typeId, description, amount, categoryId, accountId, frequencyId, date)
+    }
+
+    //create new or updated transaction
+    const createTransaction = (
+        newId: string,
+        newCategory: CategoryType,
+        newAccount: AccountType,
+        newFrequency: FrequencyType,
+        status: Status,
+        newType: TypeOfTransaction
+    ) => {
+
+        let createdTransaction: TransactionType = {
+            Id: newId,
+            description: description,
+            amount: parseFloat(amount),
+            categoryId: categoryId,
+            Category: newCategory,
+            accountId: accountId,
+            Account: newAccount,
+            frequencyId: frequencyId,
+            Frequency: newFrequency,
+            date: date,
+            statusId: transStatusId,
+            status: status,
+            typeId: typeId,
+            type: newType
+        }
+        return createdTransaction
     }
 
     // function - reset error
@@ -175,30 +239,28 @@ const EditAddTransaction = () => {
         setErrorMsg("")
     }
 
+    // jsx to display
     return (
         <section>
-            <form
-                onSubmit={HandleSubmit}
+            <form onSubmit={HandleSubmit}
                 className="w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg"
             >
-                <p className="text-2xl text-center mb-12 capitalize">{formHeading}</p>
+                <p className="text-2xl text-center mb-8 capitalize">{formHeading}</p>
 
                 <section className="w-[80%] mx-auto">
                     {/* type */}
-                    <div className="grid grid-cols-2 gap-4 mb-8">
+                    <div className="flex justify-center items-center gap-8 mb-8">
                         {
                             transType && transType.map((types) => {
                                 return (
                                     <div key={types.Id}>
-                                        <input
-                                            type="radio"
-                                            name="type"
+                                        <RadioBtnComponent
                                             value={types.Id}
-                                            checked={type == types.Id}
-                                            onChange={(e) => setType(e.target.value)}
-                                            onFocus={removeError}
+                                            selectedValue={typeId}
+                                            setSelectedValue={setTypeId}
+                                            removeError={removeError}
+                                            labelText={types.name}
                                         />
-                                        <label className="ms-2 capitalize">{types.name}</label>
                                     </div>
                                 )
                             })
@@ -207,114 +269,96 @@ const EditAddTransaction = () => {
 
                     {/* description */}
                     <div className="mb-8 flex flex-col">
-                        <label className="mb-2 text-gray-500">Description</label>
-                        <input
-                            type="text"
+                        <TextInputComponent
+                            labelTxt="Description"
                             value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            className="border-b-2 border-gray-500 outline-0"
-                            onFocus={removeError}
+                            setValue={setDescription}
+                            removeError={removeError}
                         />
                     </div>
 
                     {/* amount */}
                     <div className="mb-8 flex flex-col">
-                        <label className="mb-2 text-gray-500">Amount</label>
-                        <input
-                            type="float"
-                            min={0}
+                        <NumberInputComponent
+                            labelTxt="Amount"
                             value={amount}
-                            placeholder="0"
-                            onChange={(e) => setAmount(e.target.value)}
-                            className="border-b-2 border-gray-400 outline-0 px-1 py-0.5"
-                            onFocus={removeError}
+                            setValue={setAmount}
+                            removeError={removeError}
                         />
                     </div>
 
                     {/* category */}
                     <div className="mb-8 flex flex-col">
-                        <label className="mb-2 text-gray-500">Category</label>
-                        <select
-                            className="outline-0 w-[100%] py-1 mx-auto border-b-2 border-gray-400"
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                            onFocus={removeError}
-                        >
-                            <option value={""}>Select A Category</option>
-                            {
-                                categories && categories.map(category => {
-                                    return (
-                                        <option
-                                            value={category.Id}
-                                            key={category.Id}
-                                        >{category.name}</option>
-                                    )
-                                })
-                            }
-                        </select>
+                        {
+                            categories && <SelectComponent
+                                labelText="Category"
+                                value={categoryId}
+                                setValue={setCategoryId}
+                                removeError={removeError}
+                                defaultTitle="Select A Category"
+                                optionsData={categories}
+                            />
+                        }
                     </div>
 
                     {/* account */}
                     <div className="mb-8 flex flex-col">
-                        <label className="mb-2 text-gray-500">Account</label>
-                        <select
-                            className="outline-0 w-[100%] py-1 mx-auto border-b-2 border-gray-400"
-                            value={account}
-                            onChange={(e) => setAccount(e.target.value)}
-                            onFocus={removeError}
-                        >
-                            <option value={""}>Select An Account</option>
-                            {
-                                accounts && accounts.map(account => {
-                                    return (
-                                        <option
-                                            value={account.Id}
-                                            key={account.Id}
-                                        >
-                                            {account.name}</option>
-                                    )
-                                })
-                            }
-                        </select>
+                        {
+                            accounts && <SelectComponent
+                                labelText="Account"
+                                value={accountId}
+                                setValue={setAccountId}
+                                removeError={removeError}
+                                defaultTitle="Select An Account"
+                                optionsData={accounts}
+                            />
+                        }
                     </div>
 
                     {/* frequency */}
                     <div className="mb-8 flex flex-col">
-                        <label className="mb-2 text-gray-500">Frequency</label>
-                        <select
-                            className="outline-0 w-[100%] py-1 mx-auto border-b-2 border-gray-400"
-                            value={frequency}
-                            onChange={(e) => setFrequency(e.target.value)}
-                            onFocus={removeError}
-                        >
-                            <option value={""}>Select Frequency</option>
-                            {
-                                frequencies && frequencies.map(frequency => {
-                                    return (
-                                        <option
-                                            value={frequency.Id}
-                                            key={frequency.Id}
-                                        >{frequency.name}</option>
-                                    )
-                                })
-                            }
-                        </select>
+                        {
+                            frequencies && <SelectComponent
+                                labelText="Frequency"
+                                value={frequencyId}
+                                setValue={setFrequencyId}
+                                removeError={removeError}
+                                defaultTitle="Select Frequency"
+                                optionsData={frequencies}
+                            />
+                        }
                     </div>
 
                     {/* date */}
-                    <div className="flex flex-col gap-4 mb-14">
+                    <div className="flex flex-col gap-4 mb-10">
                         {
-                            (frequency == "2") ?
+                            (frequencyId == "2") ?
                                 <p className="mb-2 text-gray-500">Start Date:</p> :
                                 <p className="mb-2 text-gray-500">Date:</p>
                         }
-                        <input
-                            type="date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            onFocus={removeError}
-                            className="outline-0 border-b-2 border-gray-500"
+                        <DateInputComponent
+                            date={date}
+                            setDate={setDate}
+                            removeError={removeError}
                         />
+                    </div>
+                    {/* type */}
+                    <div className="flex justify-center items-center gap-8 mb-14">
+                        {
+                            status && status.map((status) => {
+                                return (
+                                    <div key={status.Id}>
+                                        <RadioBtnComponent
+                                            value={status.Id}
+                                            selectedValue={transStatusId}
+                                            setSelectedValue={setTransStatusId}
+                                            removeError={removeError}
+                                            labelText={status.name}
+                                        />
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
 
                     {/* error message */}
@@ -324,16 +368,9 @@ const EditAddTransaction = () => {
 
                     {/* submit button */}
                     <div className="flex justify-center gap-5">
-                        <input
-                            type="submit"
-                            value={btnText}
-                            className="bg-sky-900 w-[30%] text-white text-lg py-2 px-4 rounded-lg cursor-pointer shadow-md hover:shadow-2xl"
-                        />
-                        <Link to={"/expenses/transactions"}
-                            className="bg-gray-500 text-white w-[30%] text-center text-lg block shadow-md py-2.5 px-4 rounded-lg cursor-pointer hover:shadow-2xl"
-                        >Cancel</Link>
+                        <SubmitBtn btnText={btnText} />
+                        <CancelBtn link="/expenses/transactions" />
                     </div>
-
                 </section>
             </form >
         </section >

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
-import type { CategoryType } from '../entityTypes/entityTypes';
-import { categoryData } from '../mockData/MockData';
+import type { CategoryType } from '../../entityTypes/entityTypes';
+import { categoryData } from '../../mockData/MockData';
 
 const useCategoriesStore = create(
     combine(
@@ -19,7 +19,6 @@ const useCategoriesStore = create(
                 return useCategoriesStore.getState().categories
                     .find((category: CategoryType) => category.Id === id);
             },
-
 
         })),
 )

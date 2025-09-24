@@ -18,6 +18,11 @@ export interface TypeOfTransaction {
     name: "Expense" | "Income"
 }
 
+export interface Status {
+    Id: string,
+    name: "Paid" | "Outstanding"
+}
+
 export interface TransactionType {
     Id: string
     description: string
@@ -31,5 +36,6 @@ export interface TransactionType {
     frequencyId: string
     Frequency: FrequencyType
     date: string
-    status: "Paid" | "Outstanding"
+    statusId: string
+    status: Status
 }

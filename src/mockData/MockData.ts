@@ -2,6 +2,7 @@ import type {
     AccountType,
     CategoryType,
     FrequencyType,
+    Status,
     TransactionType,
     TypeOfTransaction
 } from "../entityTypes/entityTypes";
@@ -32,6 +33,11 @@ export const typeOfTransaction: TypeOfTransaction[] = [
     { Id: "200a", name: "Income" },
 ]
 
+export const transactionStatus: Status[] = [
+    { Id: "1", name: "Paid" },
+    { Id: "2", name: "Outstanding" }
+]
+
 export const transactionData: TransactionType[] = [
     {
         Id: "100a",
@@ -44,7 +50,8 @@ export const transactionData: TransactionType[] = [
         frequencyId: "100a",
         Frequency: { Id: "100a", name: "Once only" },
         date: "2025-09-28",
-        status: "Outstanding",
+        statusId: "2",
+        status: { Id: "2", name: "Outstanding" },
         typeId: "100a",
         type: { Id: "100a", name: "Expense" }
     },
@@ -59,7 +66,8 @@ export const transactionData: TransactionType[] = [
         frequencyId: "200a",
         Frequency: { Id: "200a", name: "Monthly" },
         date: "2025-09-10",
-        status: "Paid",
+        statusId: "1",
+        status: { Id: "1", name: "Paid" },
         typeId: "100a",
         type: { Id: "100a", name: "Expense" }
     },
@@ -74,7 +82,8 @@ export const transactionData: TransactionType[] = [
         frequencyId: "200a",
         Frequency: { Id: "100a", name: "Once only" },
         date: "2025-09-27",
-        status: "Outstanding",
+        statusId: "2",
+        status: { Id: "2", name: "Outstanding" },
         typeId: "100a",
         type: { Id: "100a", name: "Expense" }
     },
@@ -89,7 +98,8 @@ export const transactionData: TransactionType[] = [
         frequencyId: "300a",
         Frequency: { Id: "300a", name: "Yearly" },
         date: "2025-09-20",
-        status: "Paid",
+        statusId: "1",
+        status: { Id: "1", name: "Paid" },
         typeId: "100a",
         type: { Id: "100a", name: "Expense" }
     },
@@ -104,7 +114,8 @@ export const transactionData: TransactionType[] = [
         frequencyId: "200a",
         Frequency: { Id: "200a", name: "Monthly" },
         date: "2025-09-10",
-        status: "Paid",
+        statusId: "1",
+        status: { Id: "1", name: "Paid" },
         typeId: "100a",
         type: { Id: "100a", name: "Expense" }
     },
@@ -119,7 +130,8 @@ export const transactionData: TransactionType[] = [
         frequencyId: "200a",
         Frequency: { Id: "200a", name: "Monthly" },
         date: "2025-09-01",
-        status: "Paid",
+        statusId: "1",
+        status: { Id: "1", name: "Paid" },
         typeId: "200a",
         type: { Id: "200a", name: "Income" }
     },

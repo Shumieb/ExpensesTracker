@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
-import type { TransactionType } from '../entityTypes/entityTypes';
-import { transactionData } from '../mockData/MockData';
+import type { TransactionType } from '../../entityTypes/entityTypes';
+import { transactionData } from '../../mockData/MockData';
 
 const useTransactionsStore = create(
     combine(

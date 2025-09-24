@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
-import type { FrequencyType } from '../entityTypes/entityTypes';
-import { frequencyData } from '../mockData/MockData';
+import type { FrequencyType } from '../../entityTypes/entityTypes';
+import { frequencyData } from '../../mockData/MockData';
 
 const useFrequenciesStore = create(
     combine(
@@ -19,7 +19,6 @@ const useFrequenciesStore = create(
                 return useFrequenciesStore.getState().frequencies
                     .find((frequency: FrequencyType) => frequency.Id === id);
             },
-
 
         })),
 )

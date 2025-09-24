@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
-import type { AccountType } from '../entityTypes/entityTypes';
-import { accountsData } from '../mockData/MockData';
+import type { AccountType } from '../../entityTypes/entityTypes';
+import { accountsData } from '../../mockData/MockData';
 
 const useAccountsStore = create(
     combine(
@@ -19,7 +19,6 @@ const useAccountsStore = create(
                 return useAccountsStore.getState().accounts
                     .find((account: AccountType) => account.Id === id);
             },
-
 
         })),
 )

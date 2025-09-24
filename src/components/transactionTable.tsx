@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { TransactionTableRow } from "./transactionTableRow"
 import type { TransactionType } from "../entityTypes/entityTypes"
-import useTransactionsStore from "../stores/transactionStore"
+import useTransactionsStore from "../stores/zustand/transactionStore"
+
+
 
 const TransactionTable = () => {
 
@@ -9,7 +11,7 @@ const TransactionTable = () => {
     const [transactionsData, setTransactionsData] = useState<TransactionType[]>([])
 
     //stores
-    const storeTransactionData = useTransactionsStore((state) => state.initializeTransactions)
+    const storeTransactionData = useTransactionsStore.getState().initializeTransactions
 
     // initialise
     useEffect(() => {
@@ -20,7 +22,7 @@ const TransactionTable = () => {
     }, [])
 
     return (
-        <table className="my-4 border border-gray-400 w-[100%]">
+        <table className="table-auto my-4 border border-gray-400 w-[100%]">
             <thead>
                 <tr className="text-center bg-sky-900 text-white">
                     <th className="border border-gray-400 py-1">Category</th>
