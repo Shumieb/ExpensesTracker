@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { redirect, useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import type { AccountType, CategoryType, FrequencyType, Status, TransactionType, TypeOfTransaction } from "../entityTypes/entityTypes";
 import useTransactionsStore from "../stores/zustand/transactionStore";
 import { v4 as uuidv4 } from 'uuid';
@@ -21,6 +21,7 @@ const EditAddTransaction = () => {
     // route
     let params = useParams();
     let transactionId = params.id
+    const navigate = useNavigate();
 
     // state
     const [formHeading, setFormHeading] = useState("Add New Transaction")
@@ -86,7 +87,7 @@ const EditAddTransaction = () => {
 
         // if route is not present redirect
         if (!transactionId) {
-            redirect("/expenses/transactions")
+            navigate("/expenses/transactions")
             return
         }
 
@@ -128,7 +129,7 @@ const EditAddTransaction = () => {
         e.preventDefault()
 
         // error check
-        if (description.trim().length < 4) {
+        if (description == "") {
             setErrorMsg("Please enter a description")
             setError(true)
         } else if (amount == "") {
@@ -143,7 +144,7 @@ const EditAddTransaction = () => {
         } else if (frequencyId == "") {
             setErrorMsg("Please select a frequency")
             setError(true)
-        } else if (date.trim().length < 4) {
+        } else if (date.trim().length < 1) {
             setErrorMsg("Please select a date")
             setError(true)
         } else {
@@ -185,6 +186,8 @@ const EditAddTransaction = () => {
                 )
                 //update state
                 addTransaction(newTransaction)
+                // redirect to transactions
+                navigate("/expenses/transactions")
 
             } else {
                 // create updated transaction
@@ -198,10 +201,12 @@ const EditAddTransaction = () => {
                 )
                 // update state
                 updateTransaction(transactionId, updatedTransaction)
+                // redirect to transactions
+                navigate("/expenses/transactions")
             }
         }
 
-        console.log(typeId, description, amount, categoryId, accountId, frequencyId, date)
+        //console.log(typeId, description, amount, categoryId, accountId, frequencyId, date)
     }
 
     //create new or updated transaction
@@ -256,6 +261,7 @@ const EditAddTransaction = () => {
                                     <div key={types.Id}>
                                         <RadioBtnComponent
                                             value={types.Id}
+                                            name={"type"}
                                             selectedValue={typeId}
                                             setSelectedValue={setTypeId}
                                             removeError={removeError}
@@ -345,15 +351,16 @@ const EditAddTransaction = () => {
                     {/* type */}
                     <div className="flex justify-center items-center gap-8 mb-14">
                         {
-                            status && status.map((status) => {
+                            status && status.map((stat) => {
                                 return (
-                                    <div key={status.Id}>
+                                    <div key={stat.Id}>
                                         <RadioBtnComponent
-                                            value={status.Id}
+                                            value={stat.Id}
+                                            name={"status"}
                                             selectedValue={transStatusId}
                                             setSelectedValue={setTransStatusId}
                                             removeError={removeError}
-                                            labelText={status.name}
+                                            labelText={stat.name}
                                         />
                                     </div>
                                 )

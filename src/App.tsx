@@ -26,7 +26,7 @@ function App() {
           children: [
             {
               path: "/expenses",
-              element: <Dashboard />
+              element: <Dashboard />,
             },
             {
               path: "/expenses/transactions",

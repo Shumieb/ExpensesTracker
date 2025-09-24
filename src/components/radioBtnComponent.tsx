@@ -4,16 +4,17 @@ interface PropTypes {
     selectedValue: string,
     setSelectedValue: (val: string) => void,
     removeError: () => void,
-    labelText: string
+    labelText: string,
+    name: string
 }
 
 
-const RadioBtnComponent = ({ value, selectedValue, setSelectedValue, removeError, labelText }: PropTypes) => {
+const RadioBtnComponent = ({ value, selectedValue, setSelectedValue, removeError, labelText, name }: PropTypes) => {
     return (
         <>
             <input
                 type="radio"
-                name="type"
+                name={name}
                 value={value}
                 checked={selectedValue == value}
                 onChange={(e) => setSelectedValue(e.target.value)}

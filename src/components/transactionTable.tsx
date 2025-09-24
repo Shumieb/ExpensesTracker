@@ -3,8 +3,6 @@ import { TransactionTableRow } from "./transactionTableRow"
 import type { TransactionType } from "../entityTypes/entityTypes"
 import useTransactionsStore from "../stores/zustand/transactionStore"
 
-
-
 const TransactionTable = () => {
 
     // state
@@ -12,14 +10,17 @@ const TransactionTable = () => {
 
     //stores
     const storeTransactionData = useTransactionsStore.getState().initializeTransactions
+    const transactionsStoreData = useTransactionsStore.getState().transactions
 
     // initialise
     useEffect(() => {
-        let transactions = storeTransactionData()
-        //console.log(transactions)
-        setTransactionsData(transactions)
-
-    }, [])
+        if (transactionsStoreData.length < 1) {
+            let transactions = storeTransactionData()
+            setTransactionsData(transactions)
+        } else {
+            setTransactionsData(transactionsStoreData)
+        }
+    }, [transactionsStoreData])
 
     return (
         <table className="table-auto my-4 border border-gray-400 w-[100%]">
