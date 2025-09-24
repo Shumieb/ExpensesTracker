@@ -37,7 +37,7 @@ export const TransactionTableRow = ({ transaction }: PropTypes) => {
                     <FaPenToSquare />
                 </Link>
                 <Link to={`/expenses/delete/${transaction.Id}`} role="button"
-                    className="cursor-pointer text-red-900 inline-"
+                    className="cursor-pointer text-red-900 inline"
                 >
                     <FaTrashCan />
                 </Link>

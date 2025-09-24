@@ -8,6 +8,8 @@ import Transactions from './components/Page/transactions';
 import Profile from './components/Page/profile';
 import EditAddTransaction from './components/Page/editAddTransaction';
 import DeleteTransaction from './components/Page/deleteTransaction';
+import EditProfile from './components/Page/editProfile';
+import DeleteProfile from './components/Page/deleteProfile';
 
 function App() {
 
@@ -33,8 +35,16 @@ function App() {
               element: <Transactions />
             },
             {
-              path: "/expenses/profile",
+              path: "/expenses/profile/:id",
               element: <Profile />
+            },
+            {
+              path: "/expenses/edit-profile/:id",
+              element: <EditProfile />
+            },
+            {
+              path: "/expenses/delete-profile/:id",
+              element: <DeleteProfile />
             },
             {
               path: "/expenses/addEdit/:id",

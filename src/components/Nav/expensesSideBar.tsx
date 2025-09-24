@@ -38,9 +38,9 @@ const ExpensesSideBar = () => {
                     </li>
                     <li className="mb-6">
                         <Link
-                            to="/expenses/profile"
+                            to="/expenses/profile/1"
                             className={`mx-auto block py-2 text-lg rounded-xl w-[80%] 
-                                ${(location.pathname == "/expenses/profile") ?
+                                ${(location.pathname.includes("/expenses/profile")) ?
                                     "bg-sky-900 text-white" :
                                     "text-black"}
                             `}

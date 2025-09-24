@@ -54,8 +54,8 @@ const DeleteTransaction = () => {
             <form onSubmit={HandleSubmit}
                 className={`w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg border-2 ${transaction?.typeId == "100a" ? "border-red-300" : "border-green-300"}`}
             >
-                <p className="text-2xl text-center mb-8 capitalize">Delete</p>
-                <p className="text-xl py-1 text-gray-800 text-center">Are you sure you want to delete the following transactions?</p>
+                <p className="text-2xl text-center mb-6 capitalize">Delete</p>
+                <p className="text-xl py-1 text-gray-800 text-center italic">Are you sure you want to delete the following transactions?</p>
                 <div className="mb-8 text-center text-xl py-1 capitalize">
                     <p className={`text-2xl py-2 font-bold ${transaction?.typeId == "100a" ? "text-red-900" : "text-green-900"}`}>
                         {transaction?.type.name}

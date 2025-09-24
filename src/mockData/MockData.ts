@@ -24,8 +24,6 @@ export const frequencyData: FrequencyType[] = [
 
 export const accountsData: AccountType[] = [
     { Id: "100a", name: "Current" },
-    { Id: "200a", name: "Current 1" },
-    { Id: "300a", name: "Current 2" },
 ]
 
 export const typeOfTransaction: TypeOfTransaction[] = [

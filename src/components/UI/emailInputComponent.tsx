@@ -1,4 +1,3 @@
-
 interface PropTypes {
     labelTxt: string,
     value: string,
@@ -7,12 +6,12 @@ interface PropTypes {
     removeError: () => void
 }
 
-const TextInputComponent = ({ labelTxt, value, setValue, removeError, placeholder }: PropTypes) => {
+const EmailInputComponent = ({ labelTxt, value, setValue, removeError, placeholder }: PropTypes) => {
     return (
         <>
             <label className="mb-2 text-gray-500">{labelTxt}</label>
             <input
-                type="text"
+                type="email"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder={placeholder}
@@ -23,4 +22,4 @@ const TextInputComponent = ({ labelTxt, value, setValue, removeError, placeholde
     )
 }
 
-export default TextInputComponent
+export default EmailInputComponent
