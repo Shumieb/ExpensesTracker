@@ -23,11 +23,12 @@ const TransactionTable = () => {
     }, [transactionsStoreData])
 
     return (
-        <table className="table-auto my-4 border border-gray-400 w-[100%]">
+        <table className="table-auto border-collapse my-4 border border-gray-400 w-[100%]">
             <thead>
                 <tr className="text-center bg-sky-900 text-white">
                     <th className="border border-gray-400 py-1">Category</th>
                     <th className="border border-gray-400 py-1">Account</th>
+                    <th className="border border-gray-400 py-1">Status</th>
                     <th className="border border-gray-400 py-1">Date</th>
                     <th className="border border-gray-400 py-1">Description</th>
                     <th className="border border-gray-400 py-1">Amount</th>

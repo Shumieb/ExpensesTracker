@@ -34,8 +34,20 @@ const useTransactionsStore = create(
                         transaction.Id == id ? newTransaction : transaction
                     )
                 }))
-            }
-        })),
+            },
+
+            // Function to delete a transaction
+            deleteTransaction: (id: string) => {
+                set((state) => ({
+                    transactions: state.transactions.filter((transaction: TransactionType) =>
+                        transaction.Id != id
+                    )
+                }))
+            },
+
+
+
+        })),//end
 )
 
 export default useTransactionsStore;

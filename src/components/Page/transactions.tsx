@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import TransactionTable from "./transactionTable"
+import TransactionTable from "../transactionTable"
 
 const Transactions = () => {
 

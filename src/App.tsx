@@ -3,11 +3,11 @@ import Layout from './Layout';
 import Home from './pages/home';
 import About from './pages/about';
 import Expenses from './pages/expenses';
-import Dashboard from './components/dashboard';
-import Transactions from './components/transactions';
-import Profile from './components/profile';
-import EditAddTransaction from './components/editAddTransaction';
-import DeleteTransaction from './components/deleteTransaction';
+import Dashboard from './components/Page/dashboard';
+import Transactions from './components/Page/transactions';
+import Profile from './components/Page/profile';
+import EditAddTransaction from './components/Page/editAddTransaction';
+import DeleteTransaction from './components/Page/deleteTransaction';
 
 function App() {
 

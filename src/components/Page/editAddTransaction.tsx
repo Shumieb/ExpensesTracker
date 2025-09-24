@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
-import type { AccountType, CategoryType, FrequencyType, Status, TransactionType, TypeOfTransaction } from "../entityTypes/entityTypes";
-import useTransactionsStore from "../stores/zustand/transactionStore";
+import type { AccountType, CategoryType, FrequencyType, Status, TransactionType, TypeOfTransaction } from "../../entityTypes/entityTypes";
+import useTransactionsStore from "../../stores/zustand/transactionStore";
 import { v4 as uuidv4 } from 'uuid';
-import SelectComponent from "./selectComponent";
-import RadioBtnComponent from "./radioBtnComponent";
-import CancelBtn from "./cancelBtn";
-import SubmitBtn from "./submitBtn";
-import DateInputComponent from "./dateInputComponent";
-import NumberInputComponent from "./numberInputComponent";
-import TextInputComponent from "./textInputComponent";
-import useCategoriesStore from "../stores/zustand/categoriesStore";
-import useFrequenciesStore from "../stores/zustand/frequenciesStore";
-import useAccountsStore from "../stores/zustand/accountsStore";
-import useTransactionTypesStore from "../stores/zustand/transactionTypesStore";
-import { transactionStatus } from "../mockData/MockData";
+import SelectComponent from "../UI/selectComponent";
+import RadioBtnComponent from "../UI/radioBtnComponent";
+import CancelBtn from "../UI/cancelBtn";
+import SubmitBtn from "../UI/submitBtn";
+import DateInputComponent from "../UI/dateInputComponent";
+import NumberInputComponent from "../UI/numberInputComponent";
+import TextInputComponent from "../UI/textInputComponent";
+import useCategoriesStore from "../../stores/zustand/categoriesStore";
+import useFrequenciesStore from "../../stores/zustand/frequenciesStore";
+import useAccountsStore from "../../stores/zustand/accountsStore";
+import useTransactionTypesStore from "../../stores/zustand/transactionTypesStore";
+import { transactionStatus } from "../../mockData/MockData";
 
 const EditAddTransaction = () => {
 
@@ -69,6 +69,11 @@ const EditAddTransaction = () => {
 
     // useEffect - run when route changes
     useEffect(() => {
+        // if route is not present redirect
+        if (!transactionId) {
+            navigate("/expenses/transactions")
+            return
+        }
         // set form select data
         // set categories
         let categoryData = getCategories()
@@ -84,12 +89,6 @@ const EditAddTransaction = () => {
         setTransTypes(typeOfTransaction)
         // set status
         setStatus(transactionStatus)
-
-        // if route is not present redirect
-        if (!transactionId) {
-            navigate("/expenses/transactions")
-            return
-        }
 
         if (transactionId == "add") {
             // add new transaction
@@ -150,8 +149,8 @@ const EditAddTransaction = () => {
         } else {
             // when form data is valid
             // is there is no id or transaction or status
-            if (!transactionId || !transaction || !status) {
-                console.log("missing values")
+            if (!transactionId || !status) {
+                console.log("missing values", transactionId, status)
                 return
             }
 
@@ -190,6 +189,11 @@ const EditAddTransaction = () => {
                 navigate("/expenses/transactions")
 
             } else {
+                // is there is id or transaction
+                if (!transaction) {
+                    console.log("missing values", transaction)
+                    return
+                }
                 // create updated transaction
                 let updatedTransaction: TransactionType = createTransaction(
                     transaction.Id,
@@ -248,7 +252,7 @@ const EditAddTransaction = () => {
     return (
         <section>
             <form onSubmit={HandleSubmit}
-                className="w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg"
+                className={`w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg border-2 ${typeId == "100a" ? "border-red-300" : "border-green-300"}`}
             >
                 <p className="text-2xl text-center mb-8 capitalize">{formHeading}</p>
 
@@ -349,7 +353,7 @@ const EditAddTransaction = () => {
                         />
                     </div>
                     {/* type */}
-                    <div className="flex justify-center items-center gap-8 mb-14">
+                    <div className="flex justify-center items-center gap-8 mb-8">
                         {
                             status && status.map((stat) => {
                                 return (
@@ -375,7 +379,7 @@ const EditAddTransaction = () => {
 
                     {/* submit button */}
                     <div className="flex justify-center gap-5">
-                        <SubmitBtn btnText={btnText} />
+                        <SubmitBtn btnText={`${btnText} ${typeId == "100a" ? "Expense" : "Income"}`} />
                         <CancelBtn link="/expenses/transactions" />
                     </div>
                 </section>

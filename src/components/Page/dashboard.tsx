@@ -1,9 +1,9 @@
 import { useState } from "react"
-import DateToggle from "./dateToggle"
-import TotalsCard from "./totalsCard"
-import CategoryTotalsGraph from "./categoryTotalsGraph"
-import MonthlyBalanceGraph from "./monthlyBalanceGraph"
-import WeeklyExpensesGraph from "./weeklyExpensesGraph"
+import DateToggle from "../dateToggle"
+import TotalsCard from "../totalsCard"
+import CategoryTotalsGraph from "../Graphs/categoryTotalsGraph"
+import MonthlyBalanceGraph from "../Graphs/monthlyBalanceGraph"
+import WeeklyExpensesGraph from "../Graphs/weeklyExpensesGraph"
 
 const Dashboard = () => {
 

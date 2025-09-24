@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router"
-import img from "../assets/imgs/placeholder2.jpg"
+import img from "../../assets/imgs/placeholder2.jpg"
 
 const ExpensesSideBar = () => {
 

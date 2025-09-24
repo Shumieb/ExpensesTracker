@@ -1,10 +1,10 @@
 import { Outlet } from "react-router"
-import Header from "./components/header"
-import Footer from "./components/footer"
+import Header from "./components/Nav/header"
+import Footer from "./components/Nav/footer"
 
 function Layout() {
     return (
-        <div className="bg-sky-50">
+        <div className="bg-sky-100">
             <Header />
             <div>
                 <Outlet />

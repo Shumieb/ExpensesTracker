@@ -8,12 +8,16 @@ interface PropTypes {
 
 export const TransactionTableRow = ({ transaction }: PropTypes) => {
     return (
-        <tr className="border border-gray-400">
-            <td className="border border-gray-400 py-1 text-start px-0.5 capitalize">
-                {transaction.Category.name}
+        <tr className={`border border-gray-400 ${transaction.status.Id == "1" ? "text-gray-600" : "text-gray-950"}`}>
+            <td className="border border-b-0 border-gray-400 text-start pe-0.5 capitalize">
+                <div className={`px-1 inline h-[100%] ${transaction.type.Id == "100a" ? "bg-red-600" : "bg-green-600"}`}></div>
+                <span className="py-1 px-1">{transaction.Category.name}</span>
             </td>
             <td className="border border-gray-400 py-1 text-center px-0.5 capitalize">
                 {transaction.Account.name}
+            </td>
+            <td className="border border-gray-400 py-1 text-center px-0.5 capitalize">
+                {transaction.status.name}
             </td>
             <td className="border border-gray-400 py-1 text-center px-0.5">
                 {transaction.date}

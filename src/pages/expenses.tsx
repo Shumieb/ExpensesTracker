@@ -1,5 +1,5 @@
 import { Outlet } from "react-router"
-import ExpensesSideBar from "../components/expensesSideBar"
+import ExpensesSideBar from "../components/Nav/expensesSideBar"
 
 const Expenses = () => {
     return (

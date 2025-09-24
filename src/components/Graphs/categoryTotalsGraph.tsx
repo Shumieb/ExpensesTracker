@@ -1,5 +1,5 @@
-import img from "../assets/imgs/placeholder.jpg"
-import { getMonthText } from "../utils/helperFunctions"
+import img from "../../assets/imgs/placeholder.jpg"
+import { getMonthText } from "../../utils/helperFunctions"
 
 interface PropType {
     month: number
