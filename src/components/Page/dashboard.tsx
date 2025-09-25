@@ -1,14 +1,29 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DateToggle from "../dateToggle"
 import TotalsCard from "../totalsCard"
 import CategoryTotalsGraph from "../Graphs/categoryTotalsGraph"
 import MonthlyBalanceGraph from "../Graphs/monthlyBalanceGraph"
 import WeeklyExpensesGraph from "../Graphs/weeklyExpensesGraph"
+import type { TransactionType } from "../../entityTypes/entityTypes"
 
 const Dashboard = () => {
 
     // state
     const [month, setMonth] = useState(9)
+    const [transactionData, setTransactionData] = useState<TransactionType[]>([])
+    const [currentBalance, setCurrentBalance] = useState(0)
+    const [totalExpenses, setTotalExpenses] = useState(0)
+    const [outstandingExpenses, setOutstandingExpenses] = useState(0)
+    const [availableBalance, setAvailableBalance] = useState(0)
+
+    useEffect(() => {
+        // set date
+        let thisMonth = new Date().getMonth()
+        setMonth(thisMonth + 1)
+
+        // get 
+
+    }, [])
 
     // function runs when month is changed
     const HandleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -25,7 +40,6 @@ const Dashboard = () => {
                     value={month}
                 />
             </div>
-
             {/*  Totals Cards */}
             <section className="grid grid-cols-4 gap-3 text-md mb-6">
                 <TotalsCard
@@ -49,10 +63,8 @@ const Dashboard = () => {
                     styles="text-xl text-green-600"
                 />
             </section>
-
             {/*  Expenses Total By Category*/}
             <CategoryTotalsGraph month={month} />
-
             {/*  Trend Graphs - Monthly Balance - Expenses per week*/}
             <section className="grid grid-cols-2 gap-4">
                 <MonthlyBalanceGraph month={month} />

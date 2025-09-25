@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import type { AccountType } from '../../entityTypes/entityTypes';
-import { accountsData } from '../../mockData/MockData';
+import { getAllAccounts } from '../../clients/supabaseClient';
 
 const useAccountsStore = create(
     combine(
@@ -9,15 +9,25 @@ const useAccountsStore = create(
 
         (set) => ({
             // Function to initialize the store with data 
-            initializeAccounts: () => {
-                set({ accounts: accountsData });
-                return accountsData
+            initializeAccounts: async () => {
+                if (useAccountsStore.getState().accounts.length < 1) {
+                    // get data from database
+                    let data = await getAllAccounts()
+                    if (data) {
+                        // set state
+                        set({ accounts: data });
+                        return data
+                    }
+                } else {
+                    // return state data
+                    return useAccountsStore.getState().accounts
+                }
             },
 
             //Function to get category by Id
-            getAccountById: (id: string) => {
+            getAccountById: (id: number) => {
                 return useAccountsStore.getState().accounts
-                    .find((account: AccountType) => account.Id === id);
+                    .find((account: AccountType) => account.id === id);
             },
 
         })),

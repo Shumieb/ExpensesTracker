@@ -29,3 +29,8 @@ export const getMonthText = (val: number) => {
 
     }
 }
+
+export const formatDate = (date: string) => {
+    let dateArray = date.split("-")
+    return `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`
+}

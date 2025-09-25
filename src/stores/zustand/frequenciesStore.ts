@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import type { FrequencyType } from '../../entityTypes/entityTypes';
-import { frequencyData } from '../../mockData/MockData';
+import { getAllFrequencies } from '../../clients/supabaseClient';
 
 const useFrequenciesStore = create(
     combine(
@@ -9,15 +9,25 @@ const useFrequenciesStore = create(
 
         (set) => ({
             // Function to initialize the store with data 
-            initializeFrequencies: () => {
-                set({ frequencies: frequencyData });
-                return frequencyData
+            initializeFrequencies: async () => {
+                if (useFrequenciesStore.getState().frequencies.length < 1) {
+                    // get data from database
+                    let data = await getAllFrequencies()
+                    if (data) {
+                        // set state
+                        set({ frequencies: data });
+                        return data
+                    }
+                } else {
+                    // return state data
+                    return useFrequenciesStore.getState().frequencies
+                }
             },
 
             //Function to get category by Id
-            getFrequencyById: (id: string) => {
+            getFrequencyById: (id: number) => {
                 return useFrequenciesStore.getState().frequencies
-                    .find((frequency: FrequencyType) => frequency.Id === id);
+                    .find((frequency: FrequencyType) => frequency.id === id);
             },
 
         })),

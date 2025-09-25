@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import type { TypeOfTransaction } from '../../entityTypes/entityTypes';
-import { typeOfTransaction } from '../../mockData/MockData';
+import { getAllTypes } from '../../clients/supabaseClient';
 
 const useTransactionTypesStore = create(
     combine(
@@ -9,15 +9,25 @@ const useTransactionTypesStore = create(
 
         (set) => ({
             // Function to initialize the store with data 
-            initializeTypes: () => {
-                set({ types: typeOfTransaction });
-                return typeOfTransaction
+            initializeTypes: async () => {
+                if (useTransactionTypesStore.getState().types.length < 1) {
+                    // get data from database
+                    let data = await getAllTypes()
+                    if (data) {
+                        // set state
+                        set({ types: data });
+                        return data
+                    }
+                } else {
+                    // return state data
+                    return useTransactionTypesStore.getState().types
+                }
             },
 
             //Function to get category by Id
-            getTypesById: (id: string) => {
+            getTypesById: (id: number) => {
                 return useTransactionTypesStore.getState().types
-                    .find((type: TypeOfTransaction) => type.Id === id);
+                    .find((type: TypeOfTransaction) => type.id === id);
             },
 
 

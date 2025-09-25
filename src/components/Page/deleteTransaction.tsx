@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import CancelBtn from "../UI/cancelBtn"
 import SubmitBtn from "../UI/submitBtn"
 import type { TransactionType } from "../../entityTypes/entityTypes"
-import useTransactionsStore from "../../stores/zustand/transactionStore"
+import useTransactionsStore from "../../stores/zustand/transactionsStore"
 import { useNavigate, useParams } from "react-router"
 
 const DeleteTransaction = () => {
@@ -28,7 +28,8 @@ const DeleteTransaction = () => {
         }
 
         // fetch transaction data
-        let trans = getTransactionById(transactionId)
+        let transId = parseInt(transactionId)
+        let trans = getTransactionById(transId)
 
         // runs when trans is not found
         if (!trans) {
@@ -45,20 +46,22 @@ const DeleteTransaction = () => {
         // prevent auto page refresh
         e.preventDefault()
         // delete transaction
-        if (transactionId !== undefined) deleteTransaction(transactionId)
+        let transId;
+        if (transactionId !== undefined) transId = parseInt(transactionId)
+        if (transId) deleteTransaction(transId)
         navigate("/expenses/transactions")
     }
 
     return (
         <section className="my-5">
             <form onSubmit={HandleSubmit}
-                className={`w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg border-2 ${transaction?.typeId == "100a" ? "border-red-300" : "border-green-300"}`}
+                className={`w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg border-2 ${transaction?.TypeId == 1 ? "border-red-300" : "border-green-300"}`}
             >
                 <p className="text-2xl text-center mb-6 capitalize">Delete</p>
                 <p className="text-xl py-1 text-gray-800 text-center italic">Are you sure you want to delete the following transactions?</p>
                 <div className="mb-8 text-center text-xl py-1 capitalize">
-                    <p className={`text-2xl py-2 font-bold ${transaction?.typeId == "100a" ? "text-red-900" : "text-green-900"}`}>
-                        {transaction?.type.name}
+                    <p className={`text-2xl py-2 font-bold ${transaction?.TypeId == 1 ? "text-red-900" : "text-green-900"}`}>
+                        {transaction?.TypeId}
                     </p>
                     <p className="py-1">
                         <span className="text-gray-700">Description:</span> {transaction?.description}
@@ -67,19 +70,19 @@ const DeleteTransaction = () => {
                         <span className="text-gray-700">Amount:</span> {transaction?.amount}
                     </p>
                     <p className="py-1">
-                        <span className="text-gray-700">Category:</span> {transaction?.Category.name}
+                        <span className="text-gray-700">Category:</span> {transaction?.CategoryId}
                     </p>
                     <p className="py-1">
-                        <span className="text-gray-700">Frequency:</span> {transaction?.Frequency.name}
+                        <span className="text-gray-700">Frequency:</span> {transaction?.FrequencyId}
                     </p>
                     <p className="py-1">
-                        <span className="text-gray-700">Account:</span> {transaction?.Account.name}
+                        <span className="text-gray-700">Account:</span> {transaction?.AccountId}
                     </p>
                     <p className="py-1">
-                        <span className="text-gray-700">Status:</span> {transaction?.status.name}
+                        <span className="text-gray-700">Status:</span> {transaction?.StatusId}
                     </p>
                     <p className="py-1">
-                        <span className="text-gray-700">Date:</span> {transaction?.date}
+                        {/*<span className="text-gray-700">Date:</span> {transaction.dueDate}*/}
                     </p>
                 </div>
 

@@ -1,41 +1,48 @@
 export interface CategoryType {
-    Id: string,
+    id: number
     name: string
+    created_at?: Date
 }
 
 export interface AccountType {
-    Id: string
+    id: number
     name: string
+    created_at?: Date
+
 }
 
 export interface FrequencyType {
-    Id: string
+    id: number,
     name: string
+    created_at?: Date
 }
 
 export interface TypeOfTransaction {
-    Id: string,
-    name: "Expense" | "Income"
+    id: number
+    name: string
+    created_at?: Date
 }
 
 export interface Status {
-    Id: string,
-    name: "Paid" | "Outstanding"
+    id: number
+    name: string
+    created_at?: Date
 }
 
 export interface TransactionType {
-    Id: string
+    id: number
     description: string
     amount: number
-    typeId: string
-    type: TypeOfTransaction
-    categoryId: string
-    Category: CategoryType
-    accountId: string
-    Account: AccountType
-    frequencyId: string
-    Frequency: FrequencyType
-    date: string
-    statusId: string
-    status: Status
+    dueDate: string
+    created_at?: Date
+    TypeId: number
+    TypeName: string
+    CategoryId: number
+    CategoryName: string
+    AccountId: number
+    AccountName: string
+    FrequencyId: number
+    FrequencyName: string
+    StatusId: number
+    StatusName: string
 }

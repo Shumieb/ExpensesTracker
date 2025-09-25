@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
-import type { AccountType, CategoryType, FrequencyType, Status, TransactionType, TypeOfTransaction } from "../../entityTypes/entityTypes";
-import useTransactionsStore from "../../stores/zustand/transactionStore";
-import { v4 as uuidv4 } from 'uuid';
+import type { AccountType, CategoryType, FrequencyType, Status, TransactionType } from "../../entityTypes/entityTypes";
+import useTransactionsStore from "../../stores/zustand/transactionsStore";
 import SelectComponent from "../UI/selectComponent";
 import RadioBtnComponent from "../UI/radioBtnComponent";
 import CancelBtn from "../UI/cancelBtn";
@@ -14,7 +13,7 @@ import useCategoriesStore from "../../stores/zustand/categoriesStore";
 import useFrequenciesStore from "../../stores/zustand/frequenciesStore";
 import useAccountsStore from "../../stores/zustand/accountsStore";
 import useTransactionTypesStore from "../../stores/zustand/transactionTypesStore";
-import { transactionStatus } from "../../mockData/MockData";
+import useStatusStore from "../../stores/zustand/statusStore";
 
 const EditAddTransaction = () => {
 
@@ -54,18 +53,21 @@ const EditAddTransaction = () => {
     const getTransactionById = useTransactionsStore.getState().getTransactionById
     const updateTransaction = useTransactionsStore.getState().updateTransaction
     const addTransaction = useTransactionsStore.getState().addTransaction
-    // categories store
-    const getCategories = useCategoriesStore.getState().initializeCategories
-    const getCategoryById = useCategoriesStore.getState().getCategoryById
-    // frequencies store
-    const getFrequencies = useFrequenciesStore.getState().initializeFrequencies
-    const getFrequencyById = useFrequenciesStore.getState().getFrequencyById
     // accounts store
-    const getAccounts = useAccountsStore.getState().initializeAccounts
-    const getAccountById = useAccountsStore.getState().getAccountById
-    // trans types
-    const getTransTypes = useTransactionTypesStore.getState().initializeTypes
-    const getTypesById = useTransactionTypesStore.getState().getTypesById
+    const getAccountsData = useAccountsStore.getState().initializeAccounts
+    const accountsStoreData = useAccountsStore.getState().accounts
+    // categories store
+    const getCategoriesData = useCategoriesStore.getState().initializeCategories
+    const categoriesStoreData = useCategoriesStore.getState().categories
+    // frequencies store
+    const getFrequenciesData = useFrequenciesStore.getState().initializeFrequencies
+    const frequenciesStoreData = useFrequenciesStore.getState().frequencies
+    // types store
+    const getTypesData = useTransactionTypesStore.getState().initializeTypes
+    const typesStoreData = useTransactionTypesStore.getState().types
+    // status store
+    const getStatusData = useStatusStore.getState().initializeStatus
+    const statusStoreData = useStatusStore.getState().status
 
     // useEffect - run when route changes
     useEffect(() => {
@@ -75,20 +77,11 @@ const EditAddTransaction = () => {
             return
         }
         // set form select data
-        // set categories
-        let categoryData = getCategories()
-        setCategories(categoryData)
-        // get frequencies
-        let frequencyData = getFrequencies()
-        setFrequencies(frequencyData)
-        // get accounts
-        let accountsData = getAccounts()
-        setAccounts(accountsData)
-        // get trans types
-        let typeOfTransaction = getTransTypes()
-        setTransTypes(typeOfTransaction)
-        // set status
-        setStatus(transactionStatus)
+        getAccData()
+        getCatData()
+        getFreqData()
+        getTypeData()
+        getStatData()
 
         if (transactionId == "add") {
             // add new transaction
@@ -101,7 +94,8 @@ const EditAddTransaction = () => {
             setBtnText("Edit")
 
             // fetch transaction data
-            let trans = getTransactionById(transactionId)
+            let transId = parseInt(transactionId)
+            let trans = getTransactionById(transId)
 
             // runs when trans is not found
             if (!trans) {
@@ -111,16 +105,66 @@ const EditAddTransaction = () => {
 
             // set state values
             setTransaction(trans)
-            setTypeId(trans.type.Id)
+            setTypeId(trans.TypeId.toString())
             setDescription(trans.description)
             setAmount(trans.amount.toString())
-            setCategoryId(trans.Category.Id)
-            setFrequencyId(trans.Frequency.Id)
-            setDate(trans.date)
-            setAccountId(trans.Account.Id)
-            setTransStatusId(trans.status.Id)
+            setCategoryId(trans.CategoryId.toString())
+            setFrequencyId(trans.FrequencyId.toString())
+            setDate("2025 05 12")
+            setAccountId(trans.AccountId.toString())
+            setTransStatusId(trans.StatusId.toString())
         }
     }, [transactionId])
+
+    // get account data
+    const getAccData = async () => {
+        if (accountsStoreData.length < 1) {
+            let data = await getAccountsData()
+            if (data) setAccounts(data)
+        } else {
+            setAccounts(accountsStoreData)
+        }
+    }
+
+    // get category data
+    const getCatData = async () => {
+        if (categoriesStoreData.length < 1) {
+            let data = await getCategoriesData()
+            if (data) setCategories(data)
+        } else {
+            setCategories(categoriesStoreData)
+        }
+    }
+
+    // get frequencies data
+    const getFreqData = async () => {
+        if (frequenciesStoreData.length < 1) {
+            let data = await getFrequenciesData()
+            if (data) setFrequencies(data)
+        } else {
+            setFrequencies(frequenciesStoreData)
+        }
+    }
+
+    // get types data
+    const getTypeData = async () => {
+        if (typesStoreData.length < 1) {
+            let data = await getTypesData()
+            if (data) setTransTypes(data)
+        } else {
+            setTransTypes(typesStoreData)
+        }
+    }
+
+    // get status data
+    const getStatData = async () => {
+        if (statusStoreData.length < 1) {
+            let data = await getStatusData()
+            if (data) setStatus(data)
+        } else {
+            setStatus(statusStoreData)
+        }
+    }
 
     // function - runs on submit
     const HandleSubmit = (e: any) => {
@@ -155,33 +199,28 @@ const EditAddTransaction = () => {
             }
 
             /// set new category
-            let newCategory = getCategoryById(categoryId)
+            // let newCategory = getCategoryById(categoryId)
             // set new account
-            let newAccount = getAccountById(accountId)
+            //let newAccount = getAccountById(accountId)
             // set new frequency
-            let newFrequency = getFrequencyById(frequencyId)
+            // let newFrequency = getFrequencyById(frequencyId)
             // set new type
-            let newType = getTypesById(typeId)
+            // let newType = getTypesById(typeId)
             // set status
-            let newStatus = status.find(status => status.Id == transStatusId)
+            // let newStatus = status.find(status => status.id == parseInt(transStatusId))
 
             // if no category, account, frequency, type, status
-            if (!newCategory || !newAccount || !newFrequency || !newType || !newStatus) {
-                console.log("could not set new values")
-                return
-            }
+            // if (!newCategory || !newAccount || !newFrequency || !newType || !newStatus) {
+            //     console.log("could not set new values")
+            //     return
+            // }
 
             if (transactionId == "add") {
                 // generate new id
-                let newId = uuidv4();
+                let newId = Math.floor((Math.random() * 1000));
                 // create new transaction
                 let newTransaction: TransactionType = createTransaction(
                     newId,
-                    newCategory,
-                    newAccount,
-                    newFrequency,
-                    newStatus,
-                    newType
                 )
                 //update state
                 addTransaction(newTransaction)
@@ -196,15 +235,10 @@ const EditAddTransaction = () => {
                 }
                 // create updated transaction
                 let updatedTransaction: TransactionType = createTransaction(
-                    transaction.Id,
-                    newCategory,
-                    newAccount,
-                    newFrequency,
-                    newStatus,
-                    newType
+                    transaction.id
                 )
                 // update state
-                updateTransaction(transactionId, updatedTransaction)
+                updateTransaction(parseInt(transactionId), updatedTransaction)
                 // redirect to transactions
                 navigate("/expenses/transactions")
             }
@@ -215,29 +249,19 @@ const EditAddTransaction = () => {
 
     //create new or updated transaction
     const createTransaction = (
-        newId: string,
-        newCategory: CategoryType,
-        newAccount: AccountType,
-        newFrequency: FrequencyType,
-        status: Status,
-        newType: TypeOfTransaction
+        newId: number,
     ) => {
 
-        let createdTransaction: TransactionType = {
-            Id: newId,
+        let createdTransaction: any = {
+            id: newId,
             description: description,
             amount: parseFloat(amount),
-            categoryId: categoryId,
-            Category: newCategory,
-            accountId: accountId,
-            Account: newAccount,
-            frequencyId: frequencyId,
-            Frequency: newFrequency,
-            date: date,
-            statusId: transStatusId,
-            status: status,
-            typeId: typeId,
-            type: newType
+            CategoryId: parseInt(categoryId),
+            AccountId: parseInt(accountId),
+            FrequencyId: parseInt(frequencyId),
+            dueDate: new Date(2025, 4, 5),
+            StatusId: parseInt(transStatusId),
+            TypeId: parseInt(typeId),
         }
         return createdTransaction
     }
@@ -262,9 +286,9 @@ const EditAddTransaction = () => {
                         {
                             transType && transType.map((types) => {
                                 return (
-                                    <div key={types.Id}>
+                                    <div key={types.id}>
                                         <RadioBtnComponent
-                                            value={types.Id}
+                                            value={types.id.toString()}
                                             name={"type"}
                                             selectedValue={typeId}
                                             setSelectedValue={setTypeId}
@@ -357,9 +381,9 @@ const EditAddTransaction = () => {
                         {
                             status && status.map((stat) => {
                                 return (
-                                    <div key={stat.Id}>
+                                    <div key={stat.id}>
                                         <RadioBtnComponent
-                                            value={stat.Id}
+                                            value={stat.id.toString()}
                                             name={"status"}
                                             selectedValue={transStatusId}
                                             setSelectedValue={setTransStatusId}

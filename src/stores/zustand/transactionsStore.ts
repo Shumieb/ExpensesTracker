@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import type { TransactionType } from '../../entityTypes/entityTypes';
-import { transactionData } from '../../mockData/MockData';
+import { getAllTransactions } from '../../clients/supabaseClient';
 
 const useTransactionsStore = create(
     combine(
@@ -9,15 +9,25 @@ const useTransactionsStore = create(
 
         (set) => ({
             // Function to initialize the store with data 
-            initializeTransactions: () => {
-                set({ transactions: transactionData });
-                return transactionData
+            initializeTransactions: async () => {
+                if (useTransactionsStore.getState().transactions.length < 1) {
+                    // get data from database
+                    let data = await getAllTransactions()
+                    if (data) {
+                        // set state
+                        set({ transactions: data });
+                        return data
+                    }
+                } else {
+                    // return state data
+                    return useTransactionsStore.getState().transactions
+                }
             },
 
             //Function to get transaction by Id
-            getTransactionById: (id: string) => {
+            getTransactionById: (id: number) => {
                 return useTransactionsStore.getState().transactions
-                    .find((transaction: TransactionType) => transaction.Id === id);
+                    .find((transaction: TransactionType) => transaction.id === id);
             },
 
             // Function to add new transaction
@@ -28,19 +38,19 @@ const useTransactionsStore = create(
             },
 
             // Function to update a transaction
-            updateTransaction: (id: string, newTransaction: TransactionType) => {
+            updateTransaction: (id: number, newTransaction: TransactionType) => {
                 set((state) => ({
                     transactions: state.transactions.map((transaction: TransactionType) =>
-                        transaction.Id == id ? newTransaction : transaction
+                        transaction.id == id ? newTransaction : transaction
                     )
                 }))
             },
 
             // Function to delete a transaction
-            deleteTransaction: (id: string) => {
+            deleteTransaction: (id: number) => {
                 set((state) => ({
                     transactions: state.transactions.filter((transaction: TransactionType) =>
-                        transaction.Id != id
+                        transaction.id != id
                     )
                 }))
             },
