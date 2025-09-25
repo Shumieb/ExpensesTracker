@@ -38,7 +38,7 @@ export const TransactionTableRow = ({ transaction }: PropTypes) => {
             <td
                 className={`border border-gray-400 py-1 text-end px-0.5 ${transaction.TypeId == 1 ? "text-red-900" : "text-green-900"}`}
             >
-                {transaction.amount}
+                {transaction.amount.toLocaleString("en-GB", { style: "currency", currency: "GBP" })}
             </td>
             <td className="border-0 text-center px-0.5 flex justify-center pt-2">
                 <Link to={`/expenses/addEdit/${transaction.id}`} role="button"

@@ -23,8 +23,8 @@ const TransactionTable = () => {
     // get trans data
     const getTransData = async () => {
         if (transactionsStoreData.length < 1) {
-            let transactions = await getTransactionData()
-            if (transactions) setTransactionsData(transactions)
+            let data = await getTransactionData()
+            if (data) setTransactionsData(data)
         } else {
             setTransactionsData(transactionsStoreData)
         }
