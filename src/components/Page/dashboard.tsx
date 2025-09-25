@@ -19,7 +19,7 @@ const Dashboard = () => {
         <section className="my-5">
             {/*  Page Header */}
             <div className="mb-6 flex justify-between items-center">
-                <p className="text-2xl">Current Account</p>
+                <p className="text-2xl text-sky-900">Current Account</p>
                 <DateToggle
                     HandleMonthChange={HandleMonthChange}
                     value={month}

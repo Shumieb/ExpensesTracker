@@ -10,7 +10,7 @@ const MonthlyBalanceGraph = ({ month }: PropType) => {
     let monthText = getMonthText(month)
 
     return (
-        <section className="bg-white rounded-md shadow-md py-6 px-3">
+        <section className="bg-white rounded-md shadow-md py-6 px-3 text-sky-900">
             <p className="text-xl capitalize">Balance</p>
             <p className="text-gray-400 capitalize">{monthText} 2025</p>
             <div>

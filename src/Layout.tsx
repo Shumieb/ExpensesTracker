@@ -4,7 +4,7 @@ import Footer from "./components/Nav/footer"
 
 function Layout() {
     return (
-        <div>
+        <div className="bg-gray-50">
             <Header />
             <div>
                 <Outlet />

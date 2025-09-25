@@ -3,7 +3,7 @@ import about_me_img from '../assets/imgs/about_me.jpg'
 
 const About = () => {
     return (
-        <main className="w-[90%] mx-auto min-h-[75vh] py-2 my-5">
+        <main className="w-[90%] mx-auto min-h-[75vh] py-2 my-5 text-sky-900">
             <p className='text-3xl text-center mb-5'>About Us</p>
             <div className="py-2 rounded-lg grid grid-cols-2 gap-4 mb-6">
                 <div className='pt-4'>

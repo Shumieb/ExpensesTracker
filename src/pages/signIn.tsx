@@ -1,20 +1,12 @@
-import { useEffect, useState } from "react"
-import TextInputComponent from "../UI/textInputComponent"
-import EmailInputComponent from "../UI/emailInputComponent"
-import PasswordInputComponent from "../UI/passwordInputComponent"
-import SubmitBtn from "../UI/submitBtn"
-import CancelBtn from "../UI/cancelBtn"
-import { useNavigate, useParams } from "react-router"
+import { useState } from "react"
+import EmailInputComponent from "../components/UI/emailInputComponent"
+import PasswordInputComponent from "../components/UI/passwordInputComponent"
+import SubmitBtn from "../components/UI/submitBtn"
+import { Link } from "react-router"
 
-const EditProfile = () => {
-
-    // route
-    let params = useParams();
-    let userId = params.id
-    const navigate = useNavigate();
+const SignIn = () => {
 
     // state
-    const [userName, setUserName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -22,29 +14,13 @@ const EditProfile = () => {
     const [error, setError] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
 
-    // useEffect - run when route changes
-    useEffect(() => {
-
-        if (!userId) {
-            navigate("/expenses/profile/1")
-            return
-        }
-
-        // fetch user details 
-        // set state values
-
-    }, [userId])
-
     // on submit
     const HandleSubmit = (e: any) => {
         // prevent auto page refresh
         e.preventDefault()
 
         // error check
-        if (userName == "") {
-            setErrorMsg("Please enter a userName")
-            setError(true)
-        } else if (email == "") {
+        if (email == "") {
             setErrorMsg("Please enter an email")
             setError(true)
         } else if (password == "") {
@@ -52,7 +28,7 @@ const EditProfile = () => {
             setError(true)
         } else {
             // valid data
-            console.log(userName, email)
+            console.log(email)
 
             // edit profile
 
@@ -68,21 +44,10 @@ const EditProfile = () => {
     }
 
     return (
-        <section className="my-5">
-            <form onSubmit={HandleSubmit}
-                className="w-[80%] mx-auto bg-white pt-12 pb-14 px-3 rounded-lg text-lg border-2 border-gray-300"
-            >
-                <p className="text-2xl text-center mb-8 capitalize">Edit Profile</p>
-                <section className="w-[80%] mx-auto">
-                    {/* username */}
-                    <div className="mb-8 flex flex-col">
-                        <TextInputComponent
-                            labelTxt="UserName"
-                            value={userName}
-                            setValue={setUserName}
-                            removeError={removeError}
-                        />
-                    </div>
+        <main className="min-h-[80vh]">
+            <form onSubmit={HandleSubmit} className="w-[60%] mx-auto bg-white mt-12 mb-14  rounded-lg text-lg pt-12 pb-14 px-6 shadow-lg">
+                <p className="text-3xl text-center text-sky-900 mb-9">Sign In</p>
+                <section className="px-4 mx-auto w-[80%]">
                     {/* email */}
                     <div className="mb-8 flex flex-col">
                         <EmailInputComponent
@@ -105,16 +70,20 @@ const EditProfile = () => {
                     {
                         error && <p className="text-center text-lg text-red-800 mb-8 italic">{errorMsg}</p>
                     }
-
                     {/* submit button */}
                     <div className="flex justify-center gap-5">
-                        <SubmitBtn btnText="Edit Profile" />
-                        <CancelBtn link="/expenses/profile/1" />
+                        <SubmitBtn btnText="Sign In" />
+                    </div>
+                    <div className="mt-8 flex justify-center items-center gap-2 text-sky-900">
+                        <p>Don't have an account?</p>
+                        <Link to={"/sign-up"}
+                            className="font-bold underline decoration-sky-900"
+                        >Sign Up today</Link>
                     </div>
                 </section>
             </form>
-        </section >
+        </main>
     )
 }
 
-export default EditProfile
+export default SignIn

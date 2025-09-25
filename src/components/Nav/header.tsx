@@ -1,15 +1,14 @@
-import { NavLink, useLocation } from "react-router"
+import { NavLink } from "react-router"
 
 const Header = () => {
 
-    let location = useLocation()
+    const HandleSignOut = () => {
+        console.log("Log out")
+    }
 
     return (
-        <header className={`${(location.pathname.includes("/expenses")) ? "bg-sky-100" : "bg-white"}`}
-        >
-            <section className="flex justify-between items-center w-[90%] mx-auto py-4">
-
-
+        <header>
+            <section className="flex justify-between items-center w-[90%] mx-auto py-4 text-sky-900">
                 <NavLink to="/"
                     className="text-2xl hover:underline decoration-sky-900">
                     Expenses Tracker
@@ -32,6 +31,19 @@ const Header = () => {
                             to="/about"
                             className="hover:underline decoration-sky-900"
                         >About</NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/sign-in"
+                            className="hover:underline decoration-sky-900"
+                        >Sign In</NavLink>
+                    </li>
+                    <li>
+                        <button
+                            onClick={HandleSignOut}
+                            className="hover:underline decoration-sky-900 cursor-pointer">
+                            Sign Out
+                        </button>
                     </li>
                 </ul>
             </section>

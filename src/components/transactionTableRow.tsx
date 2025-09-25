@@ -8,7 +8,7 @@ interface PropTypes {
 
 export const TransactionTableRow = ({ transaction }: PropTypes) => {
     return (
-        <tr className={`border border-gray-400 ${transaction.status.Id == "1" ? "text-gray-600" : "text-gray-950"}`}>
+        <tr className={`border border-gray-400 text-lg ${transaction.status.Id == "1" ? "text-gray-400" : "text-sky-950"}`}>
             <td className="border border-b-0 border-gray-400 text-start pe-0.5 capitalize">
                 <div className={`px-1 inline h-[100%] ${transaction.type.Id == "100a" ? "bg-red-600" : "bg-green-600"}`}></div>
                 <span className="py-1 px-1">{transaction.Category.name}</span>

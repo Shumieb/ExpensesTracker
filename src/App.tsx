@@ -10,6 +10,8 @@ import EditAddTransaction from './components/Page/editAddTransaction';
 import DeleteTransaction from './components/Page/deleteTransaction';
 import EditProfile from './components/Page/editProfile';
 import DeleteProfile from './components/Page/deleteProfile';
+import SignIn from './pages/signIn';
+import SignUp from './pages/signUp';
 
 function App() {
 
@@ -59,6 +61,14 @@ function App() {
         {
           path: "/about",
           element: <About />
+        },
+        {
+          path: "/sign-in",
+          element: <SignIn />
+        },
+        {
+          path: "/sign-up",
+          element: <SignUp />
         }
       ]
     },

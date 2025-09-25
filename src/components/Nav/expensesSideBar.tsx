@@ -6,7 +6,7 @@ const ExpensesSideBar = () => {
     let location = useLocation()
 
     return (
-        <section className="w-[20%] bg-white rounded-lg text-center py-6 px-2 my-5">
+        <section className="w-[20%] bg-white rounded-lg text-center py-6 px-2 my-5 text-sky-900 shadow-lg">
             <section className="px-2 py-2">
                 <img src={img} alt="user-img"
                     className="rounded-full mx-auto w-30 h-30 object-fill"
@@ -22,7 +22,7 @@ const ExpensesSideBar = () => {
                             className={`mx-auto block py-2 text-lg rounded-xl w-[80%] 
                                 ${(location.pathname == "/expenses") ?
                                     "bg-sky-900 text-white" :
-                                    "text-black"
+                                    "text-sky-900"
                                 }`}
                         >Dashboard</Link>
                     </li>
@@ -32,7 +32,7 @@ const ExpensesSideBar = () => {
                             className={`mx-auto block py-2 text-lg rounded-xl w-[80%] 
                                 ${(location.pathname == "/expenses/transactions") ?
                                     "bg-sky-900 text-white" :
-                                    "text-black"}
+                                    "text-sky-900"}
                             `}
                         >Transactions</Link>
                     </li>
@@ -42,7 +42,7 @@ const ExpensesSideBar = () => {
                             className={`mx-auto block py-2 text-lg rounded-xl w-[80%] 
                                 ${(location.pathname.includes("/expenses/profile")) ?
                                     "bg-sky-900 text-white" :
-                                    "text-black"}
+                                    "text-sky-900"}
                             `}
                         >Profile</Link>
                     </li>
